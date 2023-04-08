@@ -5,6 +5,7 @@
 | Name | Version |
 |------|---------|
 | terraform | >= 1.3 |
+| azuredevops | >= 0.4.0 |
 | azurerm | >= 3.47.0, < 4.0 |
 | random | >=3.4.0 |
 | tls | >= 3.1 |

@@ -52,7 +52,9 @@ module "aks-agents" {
 ```
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [azuredevops_agent_pool.example](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/agent_pool) | resource |
 
 ## Inputs
 
@@ -197,7 +199,9 @@ No resources.
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_azuredevops"></a> [azuredevops](#provider\_azuredevops) | 0.4.0 |
 
 
 <!-- END_TF_DOCS -->

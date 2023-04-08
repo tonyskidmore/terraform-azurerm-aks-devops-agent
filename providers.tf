@@ -10,5 +10,9 @@ terraform {
       source  = "hashicorp/tls"
       version = ">= 3.1"
     }
+    azuredevops = {
+      source  = "microsoft/azuredevops"
+      version = ">= 0.4.0"
+    }
   }
 }

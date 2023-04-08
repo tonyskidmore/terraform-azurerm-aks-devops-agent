@@ -14,6 +14,10 @@ terraform {
       source  = "registry.terraform.io/hashicorp/random"
       version = ">=3.4.0"
     }
+    azuredevops = {
+      source  = "microsoft/azuredevops"
+      version = ">= 0.4.0"
+    }
   }
 }
 
