@@ -6,6 +6,7 @@ variable "create_resource_group" {
 
 variable "location" {
   default = "uksouth"
+  type    = string
 }
 
 variable "resource_group_name" {

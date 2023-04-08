@@ -57,6 +57,7 @@ module "aks" {
   identity_type                                        = var.identity_type
   ingress_application_gateway_enabled                  = var.ingress_application_gateway_enabled
   ingress_application_gateway_id                       = var.ingress_application_gateway_id
+  ingress_application_gateway_name                     = var.ingress_application_gateway_name
   ingress_application_gateway_subnet_cidr              = var.ingress_application_gateway_subnet_cidr
   ingress_application_gateway_subnet_id                = var.ingress_application_gateway_subnet_id
   key_vault_secrets_provider_enabled                   = var.key_vault_secrets_provider_enabled
@@ -69,7 +70,7 @@ module "aks" {
   load_balancer_profile_managed_outbound_ip_count      = var.load_balancer_profile_managed_outbound_ip_count
   load_balancer_profile_managed_outbound_ipv6_count    = var.load_balancer_profile_managed_outbound_ipv6_count
   load_balancer_profile_outbound_ip_address_ids        = var.load_balancer_profile_outbound_ip_address_ids
-  load_balancer_profile_outbound_ip_prefix_ids         = var.load_balancer_profile_outbound_ip_address_ids
+  load_balancer_profile_outbound_ip_prefix_ids         = var.load_balancer_profile_outbound_ip_prefix_ids
   load_balancer_profile_outbound_ports_allocated       = var.load_balancer_profile_outbound_ports_allocated
   load_balancer_sku                                    = var.load_balancer_sku
   local_account_disabled                               = var.local_account_disabled

@@ -10,5 +10,9 @@ terraform {
       source  = "hashicorp/tls"
       version = ">= 3.1"
     }
+    random = {
+      source  = "registry.terraform.io/hashicorp/random"
+      version = ">=3.4.0"
+    }
   }
 }
