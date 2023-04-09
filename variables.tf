@@ -33,6 +33,18 @@ variable "ado_agent_pool_auto_update" {
   default     = true
 }
 
+variable "k8s_ado_agents_namespace" {
+  type        = string
+  description = "Kubernetes Azure DevOps Agent namespace"
+  default     = "ado-agents"
+}
+
+variable "k8s_ado_agent_image" {
+  type        = string
+  description = "Azure DevOps Agent conatiner image"
+  default     = "lippertmarkus/azure-pipelines-agent:latest"
+}
+
 # start of Azure/aks/azurerm variables
 
 variable "prefix" {
