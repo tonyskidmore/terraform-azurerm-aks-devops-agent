@@ -4,23 +4,23 @@
 
 # https://github.com/matt-FFFFFF/framework/blob/master/modules/aks/main.tf
 
-# resource "kubernetes_namespace" "keda" {
-#   metadata {
-#     name = "keda"
-#   }
-# }
+resource "kubernetes_namespace" "keda" {
+  metadata {
+    name = "keda"
+  }
+}
 
 # data "helm_repository" "kedacore" {
 #   name = "kedacore"
 #   url  = "https://kedacore.github.io/charts"
 # }
 
-# resource "helm_release" "keda" {
+resource "helm_release" "keda" {
 
-#   name       = "keda"
-#   repository = data.helm_repository.kedacore.metadata[0].name
-#   chart      = "kedacore/keda"
+  name       = "keda"
+  repository = "https://kedacore.github.io/charts"
+  chart      = "kedacore/keda"
 
-#   namespace  = "keda"
-#   depends_on = [kubernetes_namespace.keda]
-# }
+  namespace  = "keda"
+  depends_on = [kubernetes_namespace.keda]
+}

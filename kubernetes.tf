@@ -70,64 +70,64 @@ resource "kubernetes_job" "azure-pipelines-agent" {
   wait_for_completion = false
 }
 
-# resource "kubernetes_manifest" "scaled_job" {
-#   manifest = {
-#     apiVersion = "keda.sh/v1alpha1"
-#     kind       = "ScaledJob"
+resource "kubernetes_manifest" "scaled_job" {
+  manifest = {
+    apiVersion = "keda.sh/v1alpha1"
+    kind       = "ScaledJob"
 
-#     metadata = {
-#       name      = "azure-pipelines-scaledjob"
-#       namespace = var.k8s_ado_agents_namespace
+    metadata = {
+      name      = "azure-pipelines-scaledjob"
+      namespace = var.k8s_ado_agents_namespace
 
-#       labels = {
-#         name = "azure-pipelines-scaledjob"
-#       }
-#     }
+      labels = {
+        name = "azure-pipelines-scaledjob"
+      }
+    }
 
-#     spec = {
-#       triggers = [
-#         {
-#           type = "azure-pipelines"
-#           metadata = {
-#             poolName                   = var.ado_agent_pool_name
-#             organizationURLFromEnv     = "AZP_URL"
-#             personalAccessTokenFromEnv = "AZP_TOKEN"
-#           }
-#         }
-#       ]
-#       jobTargetRef = {
-#         activeDeadlineSeconds = 14400
-#         template = {
-#           spec = {
-#             restartPolicy = "Never"
-#             containers = [
-#               {
-#                 name            = "azure-pipelines-agent"
-#                 image           = var.k8s_ado_agent_image
-#                 imagePullPolicy = "Always"
-#                 envFrom = [
-#                   {
-#                     secretRef = {
-#                       name = "pipeline-auth"
-#                     }
-#                   }
-#                 ]
-#               }
-#             ]
-#           }
-#         }
-#       }
-#       pollingInterval            = 10
-#       successfulJobsHistoryLimit = 5
-#       failedJobsHistoryLimit     = 5
-#       maxReplicaCount            = 30
-#       rollout = {
-#         strategy = "gradual"
-#       }
-#     }
-#   }
+    spec = {
+      triggers = [
+        {
+          type = "azure-pipelines"
+          metadata = {
+            poolName                   = var.ado_agent_pool_name
+            organizationURLFromEnv     = "AZP_URL"
+            personalAccessTokenFromEnv = "AZP_TOKEN"
+          }
+        }
+      ]
+      jobTargetRef = {
+        activeDeadlineSeconds = 14400
+        template = {
+          spec = {
+            restartPolicy = "Never"
+            containers = [
+              {
+                name            = "azure-pipelines-agent"
+                image           = var.k8s_ado_agent_image
+                imagePullPolicy = "Always"
+                envFrom = [
+                  {
+                    secretRef = {
+                      name = "pipeline-auth"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+      pollingInterval            = 10
+      successfulJobsHistoryLimit = 5
+      failedJobsHistoryLimit     = 5
+      maxReplicaCount            = 30
+      rollout = {
+        strategy = "gradual"
+      }
+    }
+  }
 
-#   depends_on = [
-#     helm_release.keda
-#   ]
-# }
+  depends_on = [
+    helm_release.keda
+  ]
+}
