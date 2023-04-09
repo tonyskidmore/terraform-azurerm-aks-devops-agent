@@ -17,9 +17,7 @@
 | random | 3.4.3 |
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| aks-agents | ../.. | n/a |
+No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -67,12 +65,12 @@ resource "azurerm_subnet" "test" {
   private_endpoint_network_policies_enabled = true
 }
 
-module "aks-agents" {
-  source = "../.."
+# module "aks-agents" {
+#   source = "../.."
 
-  prefix              = "prefix-${random_id.prefix.hex}"
-  resource_group_name = local.resource_group.name
-  vnet_subnet_id      = azurerm_subnet.test.id
-}
+#   prefix              = "prefix-${random_id.prefix.hex}"
+#   resource_group_name = local.resource_group.name
+#   vnet_subnet_id      = azurerm_subnet.test.id
+# }
 ```
 <!-- END_TF_DOCS -->

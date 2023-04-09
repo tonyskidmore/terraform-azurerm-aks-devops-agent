@@ -57,6 +57,7 @@ resource "kubernetes_job" "azure-pipelines-agent" {
             value_from {
               secret_key_ref {
                 name = "pipeline-auth"
+                key  = "AZP_TOKEN"
               }
             }
           }
@@ -125,4 +126,8 @@ resource "kubernetes_job" "azure-pipelines-agent" {
 #       }
 #     }
 #   }
+
+#   depends_on = [
+#     helm_release.keda
+#   ]
 # }
