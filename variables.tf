@@ -4,6 +4,35 @@ variable "azure_aks_deploy" {
   default     = true
 }
 
+# variable "ado_ext_pat" {
+#   type        = string
+#   description = "Azure DevOps Personal Access Token"
+#   sensitive   = true
+# }
+
+# variable "ado_org" {
+#   type        = string
+#   description = "Azure DevOps organization"
+# }
+
+variable "ado_agent_pool_name" {
+  type        = string
+  description = "Azure DevOps Agent Pool Name"
+  default     = "aks-agent-pool-001"
+}
+
+variable "ado_agent_pool_auto_provision" {
+  type        = bool
+  description = "Azure DevOps Agent Pool Autoprovision"
+  default     = true
+}
+
+variable "ado_agent_pool_auto_update" {
+  type        = bool
+  description = "Azure DevOps Agent Pool Autoprovision"
+  default     = true
+}
+
 # start of Azure/aks/azurerm variables
 
 variable "prefix" {
