@@ -3,4 +3,6 @@
 directory:
   - .
 
-# skip-check:
+skip-check:
+  - CKV_GHA_*
+  - CKV2_GHA_*

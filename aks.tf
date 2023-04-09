@@ -1,3 +1,8 @@
+# data "azurerm_kubernetes_service_versions" "aks_version" {
+#   location        = azurerm_resource_group.main.location
+#   include_preview = false
+# }
+
 module "aks" {
   count               = var.azure_aks_deploy ? 1 : 0
   source              = "Azure/aks/azurerm"
@@ -131,4 +136,10 @@ module "aks" {
   vnet_subnet_id                                       = var.vnet_subnet_id
   web_app_routing                                      = var.web_app_routing
   workload_identity_enabled                            = var.workload_identity_enabled
+}
+
+data "azurerm_kubernetes_cluster" "default" {
+  depends_on          = [module.aks] # refresh cluster state before reading
+  name                = var.cluster_name
+  resource_group_name = var.resource_group_name
 }

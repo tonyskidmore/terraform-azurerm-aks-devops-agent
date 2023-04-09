@@ -4,16 +4,16 @@ variable "azure_aks_deploy" {
   default     = true
 }
 
-# variable "ado_ext_pat" {
-#   type        = string
-#   description = "Azure DevOps Personal Access Token"
-#   sensitive   = true
-# }
+variable "ado_ext_pat" {
+  type        = string
+  description = "Azure DevOps Personal Access Token"
+  sensitive   = true
+}
 
-# variable "ado_org" {
-#   type        = string
-#   description = "Azure DevOps organization"
-# }
+variable "ado_org" {
+  type        = string
+  description = "Azure DevOps organization"
+}
 
 variable "ado_agent_pool_name" {
   type        = string
