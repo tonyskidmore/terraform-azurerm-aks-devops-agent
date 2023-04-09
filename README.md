@@ -199,6 +199,13 @@ module "aks-agents" {
 |------|-------------|
 | <a name="output_admin_client_certificate"></a> [admin\_client\_certificate](#output\_admin\_client\_certificate) | n/a |
 | <a name="output_admin_client_key"></a> [admin\_client\_key](#output\_admin\_client\_key) | n/a |
+| <a name="output_client_certificate"></a> [client\_certificate](#output\_client\_certificate) | n/a |
+| <a name="output_client_key"></a> [client\_key](#output\_client\_key) | n/a |
+| <a name="output_cluster_ca_certificate"></a> [cluster\_ca\_certificate](#output\_cluster\_ca\_certificate) | n/a |
+| <a name="output_cluster_password"></a> [cluster\_password](#output\_cluster\_password) | n/a |
+| <a name="output_cluster_username"></a> [cluster\_username](#output\_cluster\_username) | n/a |
+| <a name="output_host"></a> [host](#output\_host) | n/a |
+| <a name="output_kube_config"></a> [kube\_config](#output\_kube\_config) | n/a |
 
 ## Providers
 
