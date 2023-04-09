@@ -70,6 +70,19 @@ resource "kubernetes_job" "azure-pipelines-agent" {
   wait_for_completion = false
 }
 
+# ╷
+# │ Error: Failed to construct REST client
+# │
+# │   with module.terraform-azurerm-aks-devops-agent.kubernetes_manifest.scaled_job,
+# │   on .terraform/modules/terraform-azurerm-aks-devops-agent/kubernetes.tf line 73, in resource "kubernetes_manifest" "scaled_job":
+# │   73: resource "kubernetes_manifest" "scaled_job" {
+# │
+# │ cannot create REST client: no client config
+
+# https://github.com/hashicorp/terraform-provider-kubernetes/issues/1775
+# https://github.com/hashicorp/terraform-provider-kubernetes/issues/1380
+# https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/kubectl_manifest
+
 resource "kubernetes_manifest" "scaled_job" {
   manifest = {
     apiVersion = "keda.sh/v1alpha1"
