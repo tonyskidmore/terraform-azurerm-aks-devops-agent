@@ -17,7 +17,7 @@ resource "kubernetes_namespace" "keda" {
 
 resource "helm_release" "keda" {
 
-  name       = "keda"
+  name       = "kedacore"
   repository = "https://kedacore.github.io/charts"
   chart      = "kedacore/keda"
   version    = "2.10.1"
