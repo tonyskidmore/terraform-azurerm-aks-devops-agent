@@ -2,11 +2,13 @@
 # helm repo update
 # helm install keda kedacore/keda --namespace keda --create-namespace
 
-# resource "kubernetes_namespace" "keda" {
-#   metadata {
-#     name = "keda"
-#   }
-# }
+resource "kubernetes_namespace" "keda" {
+  metadata {
+    name = "keda"
+  }
+}
+
+# https://github.com/hashicorp/terraform-provider-helm/issues/939
 
 # ╷
 # │ Error: could not download chart: chart "kedacore/keda" version "2.10.0" not found in https://kedacore.github.io/charts repository
@@ -24,15 +26,23 @@
 # │   20: resource "helm_release" "keda" {
 # │
 
-# resource "helm_release" "keda" {
+resource "helm_release" "keda" {
 
-#   name       = "kedacore"
-#   repository = "https://kedacore.github.io/charts"
-#   chart      = "kedacore/keda"
-#   # version    = "2.10.0"
+  name       = "keda"
+  repository = "https://kedacore.github.io/charts"
+  chart      = "keda"
+  version    = "2.10.0"
+  # version    = "2.8.1"
+  namespace = kubernetes_namespace.keda.metadata[0].name
 
-#   namespace = "keda"
-#   depends_on = [
-#     kubernetes_namespace.keda
-#   ]
-# }
+  # set {
+  #   name  = "podIdentity.activeDirectory.identity"
+  #   value = "${var.aad_pod_identity_name}-binding"
+  # }
+
+  # set {
+  #   name  = "http.timeout"
+  #   value = "90000"
+  # }
+
+}

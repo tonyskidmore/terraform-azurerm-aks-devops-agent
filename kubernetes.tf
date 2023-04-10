@@ -17,7 +17,7 @@ resource "kubernetes_namespace" "ado-agents" {
 resource "kubernetes_secret" "pipeline-auth" {
   metadata {
     name      = "pipeline-auth"
-    namespace = var.k8s_ado_agents_namespace
+    namespace = kubernetes_namespace.ado-agents.metadata[0].name
   }
 
   data = {
@@ -31,7 +31,7 @@ resource "kubernetes_secret" "pipeline-auth" {
 resource "kubernetes_job" "azure-pipelines-agent" {
   metadata {
     name      = "azure-pipelines-setup"
-    namespace = var.k8s_ado_agents_namespace
+    namespace = kubernetes_namespace.ado-agents.metadata[0].name
   }
   spec {
     active_deadline_seconds    = 300
@@ -67,28 +67,32 @@ resource "kubernetes_job" "azure-pipelines-agent" {
       }
     }
   }
-  wait_for_completion = false
+  wait_for_completion = true
+
+  depends_on = [
+    kubernetes_secret.pipeline-auth
+  ]
 }
 
 
-data "kubectl_file_documents" "keda" {
-  content = file("${path.module}/kubernetes/keda-2.10.0.yaml")
-}
+# data "kubectl_file_documents" "keda" {
+#   content = file("${path.module}/kubernetes/keda-2.10.0.yaml")
+# }
 
-resource "kubectl_manifest" "keda" {
-  for_each  = data.kubectl_file_documents.keda.manifests
-  yaml_body = each.value
-}
+# resource "kubectl_manifest" "keda" {
+#   for_each  = data.kubectl_file_documents.keda.manifests
+#   yaml_body = each.value
+# }
 
 resource "kubectl_manifest" "scaled_job" {
   yaml_body = templatefile("${path.module}/kubernetes/scaledjob.yml", {
-    namespace = var.k8s_ado_agents_namespace
+    namespace = kubernetes_namespace.ado-agents.metadata[0].name
     pool_name = var.ado_agent_pool_name
     image     = var.k8s_ado_agent_image
   })
   depends_on = [
-    kubernetes_namespace.ado-agents,
-    # helm_release.keda
+    kubernetes_job.azure-pipelines-agent,
+    helm_release.keda
   ]
 }
 
