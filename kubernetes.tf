@@ -71,14 +71,14 @@ resource "kubernetes_job" "azure-pipelines-agent" {
 }
 
 
-# data "kubectl_file_documents" "docs" {
-#     content = file("multi-doc-manifest.yaml")
-# }
+data "kubectl_file_documents" "keda" {
+  content = file("${path.module}/kubernetes/keda-2.10.0.yaml")
+}
 
-# resource "kubectl_manifest" "test" {
-#     for_each  = data.kubectl_file_documents.docs.manifests
-#     yaml_body = each.value
-# }
+resource "kubectl_manifest" "keda" {
+  for_each  = data.kubectl_file_documents.keda.manifests
+  yaml_body = each.value
+}
 
 resource "kubectl_manifest" "scaled_job" {
   yaml_body = templatefile("${path.module}/kubernetes/scaledjob.yml", {
@@ -88,7 +88,7 @@ resource "kubectl_manifest" "scaled_job" {
   })
   depends_on = [
     kubernetes_namespace.ado-agents,
-    helm_release.keda
+    # helm_release.keda
   ]
 }
 

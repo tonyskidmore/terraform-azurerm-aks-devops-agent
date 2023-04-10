@@ -41,6 +41,6 @@ output "kube_config" {
   sensitive = true
 }
 
-output "keda_namesapce" {
-  value = kubernetes_namespace.keda
-}
+# output "keda_namesapce" {
+#   value = kubernetes_namespace.keda
+# }
