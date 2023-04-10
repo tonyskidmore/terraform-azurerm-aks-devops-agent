@@ -4,10 +4,11 @@ metadata:
   name: azure-pipelines-scaledjob
   namespace: ${namespace}
 spec:
+  # https://keda.sh/docs/2.5/scalers/azure-pipelines/
   triggers:
     - type: azure-pipelines
       metadata:
-        poolName: ${pool_name}
+        poolID: ${pool_id}
         organizationURLFromEnv: "AZP_URL"
         personalAccessTokenFromEnv: "AZP_TOKEN"
   jobTargetRef:
