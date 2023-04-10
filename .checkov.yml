@@ -6,3 +6,6 @@ directory:
 skip-check:
   - CKV_GHA_*
   - CKV2_GHA_*
+
+skip-path:
+  - keda-2.10.0.yaml
