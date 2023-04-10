@@ -18,7 +18,7 @@ variable "ado_org" {
 variable "ado_agent_pool_name" {
   type        = string
   description = "Azure DevOps Agent Pool Name"
-  default     = "aks-agent-pool-001"
+  default     = "aks-agents-pool-001"
 }
 
 variable "ado_agent_pool_auto_provision" {
