@@ -1,7 +1,13 @@
-data "azurerm_kubernetes_service_versions" "aks_version" {
-  count           = var.location == null ? 0 : 1
-  location        = var.location
-  include_preview = false
+# data "azurerm_kubernetes_service_versions" "aks_version" {
+#   count           = var.location == null ? 0 : 1
+#   location        = var.location
+#   include_preview = false
+# }
+
+data "azurerm_kubernetes_cluster" "default" {
+  # depends_on          = [module.aks] # refresh cluster state before reading
+  name                = var.cluster_name
+  resource_group_name = var.resource_group_name
 }
 
 module "aks" {
@@ -137,10 +143,4 @@ module "aks" {
   vnet_subnet_id                                       = var.vnet_subnet_id
   web_app_routing                                      = var.web_app_routing
   workload_identity_enabled                            = var.workload_identity_enabled
-}
-
-data "azurerm_kubernetes_cluster" "default" {
-  depends_on          = [module.aks] # refresh cluster state before reading
-  name                = var.cluster_name
-  resource_group_name = var.resource_group_name
 }

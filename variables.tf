@@ -1,7 +1,7 @@
 variable "azure_aks_deploy" {
   description = "Deploy Azure AKS as part of the modeule"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "ado_ext_pat" {

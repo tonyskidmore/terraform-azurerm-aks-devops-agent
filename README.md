@@ -62,7 +62,6 @@ resource "azurerm_subnet" "test" {
 | [kubernetes_namespace.keda](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [kubernetes_secret.pipeline-auth](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) | resource |
 | [azurerm_kubernetes_cluster.default](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/kubernetes_cluster) | data source |
-| [azurerm_kubernetes_service_versions.aks_version](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/kubernetes_service_versions) | data source |
 
 ## Inputs
 
@@ -110,7 +109,7 @@ resource "azurerm_subnet" "test" {
 | <a name="input_auto_scaler_profile_skip_nodes_with_local_storage"></a> [auto\_scaler\_profile\_skip\_nodes\_with\_local\_storage](#input\_auto\_scaler\_profile\_skip\_nodes\_with\_local\_storage) | If `true` cluster autoscaler will never delete nodes with pods with local storage, for example, EmptyDir or HostPath. Defaults to `true`. | `bool` | `true` | no |
 | <a name="input_auto_scaler_profile_skip_nodes_with_system_pods"></a> [auto\_scaler\_profile\_skip\_nodes\_with\_system\_pods](#input\_auto\_scaler\_profile\_skip\_nodes\_with\_system\_pods) | If `true` cluster autoscaler will never delete nodes with pods from kube-system (except for DaemonSet or mirror pods). Defaults to `true`. | `bool` | `true` | no |
 | <a name="input_automatic_channel_upgrade"></a> [automatic\_channel\_upgrade](#input\_automatic\_channel\_upgrade) | (Optional) The upgrade channel for this Kubernetes Cluster. Possible values are `patch`, `rapid`, `node-image` and `stable`. By default automatic-upgrades are turned off. Note that you cannot specify the patch version using `kubernetes_version` or `orchestrator_version` when using the `patch` upgrade channel. See [the documentation](https://learn.microsoft.com/en-us/azure/aks/auto-upgrade-cluster) for more information | `string` | `null` | no |
-| <a name="input_azure_aks_deploy"></a> [azure\_aks\_deploy](#input\_azure\_aks\_deploy) | Deploy Azure AKS as part of the modeule | `bool` | `true` | no |
+| <a name="input_azure_aks_deploy"></a> [azure\_aks\_deploy](#input\_azure\_aks\_deploy) | Deploy Azure AKS as part of the modeule | `bool` | `false` | no |
 | <a name="input_azure_policy_enabled"></a> [azure\_policy\_enabled](#input\_azure\_policy\_enabled) | Enable Azure Policy Addon. | `bool` | `false` | no |
 | <a name="input_client_id"></a> [client\_id](#input\_client\_id) | (Optional) The Client ID (appId) for the Service Principal used for the AKS deployment | `string` | `""` | no |
 | <a name="input_client_secret"></a> [client\_secret](#input\_client\_secret) | (Optional) The Client Secret (password) for the Service Principal used for the AKS deployment | `string` | `""` | no |
@@ -207,18 +206,7 @@ resource "azurerm_subnet" "test" {
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_admin_client_certificate"></a> [admin\_client\_certificate](#output\_admin\_client\_certificate) | n/a |
-| <a name="output_admin_client_key"></a> [admin\_client\_key](#output\_admin\_client\_key) | n/a |
-| <a name="output_aks_versions"></a> [aks\_versions](#output\_aks\_versions) | n/a |
-| <a name="output_client_certificate"></a> [client\_certificate](#output\_client\_certificate) | n/a |
-| <a name="output_client_key"></a> [client\_key](#output\_client\_key) | n/a |
-| <a name="output_cluster_ca_certificate"></a> [cluster\_ca\_certificate](#output\_cluster\_ca\_certificate) | n/a |
-| <a name="output_cluster_password"></a> [cluster\_password](#output\_cluster\_password) | n/a |
-| <a name="output_cluster_username"></a> [cluster\_username](#output\_cluster\_username) | n/a |
-| <a name="output_host"></a> [host](#output\_host) | n/a |
-| <a name="output_kube_config"></a> [kube\_config](#output\_kube\_config) | n/a |
+No outputs.
 
 ## Providers
 
