@@ -56,8 +56,8 @@ resource "azurerm_subnet" "test" {
 |------|------|
 | [azuredevops_agent_pool.example](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/agent_pool) | resource |
 | [helm_release.keda](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [kubectl_manifest.scaled_job](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
 | [kubernetes_job.azure-pipelines-agent](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/job) | resource |
-| [kubernetes_manifest.scaled_job](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) | resource |
 | [kubernetes_namespace.ado-agents](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [kubernetes_namespace.keda](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [kubernetes_secret.pipeline-auth](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) | resource |
@@ -216,6 +216,7 @@ resource "azurerm_subnet" "test" {
 | <a name="output_cluster_password"></a> [cluster\_password](#output\_cluster\_password) | n/a |
 | <a name="output_cluster_username"></a> [cluster\_username](#output\_cluster\_username) | n/a |
 | <a name="output_host"></a> [host](#output\_host) | n/a |
+| <a name="output_keda_namesapce"></a> [keda\_namesapce](#output\_keda\_namesapce) | n/a |
 | <a name="output_kube_config"></a> [kube\_config](#output\_kube\_config) | n/a |
 
 ## Providers
@@ -225,6 +226,7 @@ resource "azurerm_subnet" "test" {
 | <a name="provider_azuredevops"></a> [azuredevops](#provider\_azuredevops) | 0.4.0 |
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 3.51.0 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | 2.9.0 |
+| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | 1.14.0 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.19.0 |
 
 

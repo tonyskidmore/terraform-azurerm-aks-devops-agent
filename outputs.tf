@@ -40,3 +40,7 @@ output "kube_config" {
   value     = module.aks[0].kube_config_raw
   sensitive = true
 }
+
+output "keda_namesapce" {
+  value = kubernetes_namespace.keda
+}

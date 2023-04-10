@@ -20,6 +20,7 @@ resource "helm_release" "keda" {
   name       = "keda"
   repository = "https://kedacore.github.io/charts"
   chart      = "kedacore/keda"
+  version    = "2.10.1"
 
   namespace  = "keda"
   depends_on = [kubernetes_namespace.keda]

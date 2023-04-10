@@ -70,6 +70,19 @@ resource "kubernetes_job" "azure-pipelines-agent" {
   wait_for_completion = false
 }
 
+
+resource "kubectl_manifest" "scaled_job" {
+  yaml_body = templatefile("${path.module}/kubernetes/scaledjob.yml", {
+    namespace = var.k8s_ado_agents_namespace
+    pool_name = var.ado_agent_pool_name
+    image     = var.k8s_ado_agent_image
+  })
+  depends_on = [
+    kubernetes_namespace.ado-agents
+  ]
+}
+
+
 # ╷
 # │ Error: Failed to construct REST client
 # │
@@ -83,64 +96,64 @@ resource "kubernetes_job" "azure-pipelines-agent" {
 # https://github.com/hashicorp/terraform-provider-kubernetes/issues/1380
 # https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/kubectl_manifest
 
-resource "kubernetes_manifest" "scaled_job" {
-  manifest = {
-    apiVersion = "keda.sh/v1alpha1"
-    kind       = "ScaledJob"
+# resource "kubernetes_manifest" "scaled_job" {
+#   manifest = {
+#     apiVersion = "keda.sh/v1alpha1"
+#     kind       = "ScaledJob"
 
-    metadata = {
-      name      = "azure-pipelines-scaledjob"
-      namespace = var.k8s_ado_agents_namespace
+#     metadata = {
+#       name      = "azure-pipelines-scaledjob"
+#       namespace = var.k8s_ado_agents_namespace
 
-      labels = {
-        name = "azure-pipelines-scaledjob"
-      }
-    }
+#       labels = {
+#         name = "azure-pipelines-scaledjob"
+#       }
+#     }
 
-    spec = {
-      triggers = [
-        {
-          type = "azure-pipelines"
-          metadata = {
-            poolName                   = var.ado_agent_pool_name
-            organizationURLFromEnv     = "AZP_URL"
-            personalAccessTokenFromEnv = "AZP_TOKEN"
-          }
-        }
-      ]
-      jobTargetRef = {
-        activeDeadlineSeconds = 14400
-        template = {
-          spec = {
-            restartPolicy = "Never"
-            containers = [
-              {
-                name            = "azure-pipelines-agent"
-                image           = var.k8s_ado_agent_image
-                imagePullPolicy = "Always"
-                envFrom = [
-                  {
-                    secretRef = {
-                      name = "pipeline-auth"
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      }
-      pollingInterval            = 10
-      successfulJobsHistoryLimit = 5
-      failedJobsHistoryLimit     = 5
-      maxReplicaCount            = 30
-      rollout = {
-        strategy = "gradual"
-      }
-    }
-  }
+#     spec = {
+#       triggers = [
+#         {
+#           type = "azure-pipelines"
+#           metadata = {
+#             poolName                   = var.ado_agent_pool_name
+#             organizationURLFromEnv     = "AZP_URL"
+#             personalAccessTokenFromEnv = "AZP_TOKEN"
+#           }
+#         }
+#       ]
+#       jobTargetRef = {
+#         activeDeadlineSeconds = 14400
+#         template = {
+#           spec = {
+#             restartPolicy = "Never"
+#             containers = [
+#               {
+#                 name            = "azure-pipelines-agent"
+#                 image           = var.k8s_ado_agent_image
+#                 imagePullPolicy = "Always"
+#                 envFrom = [
+#                   {
+#                     secretRef = {
+#                       name = "pipeline-auth"
+#                     }
+#                   }
+#                 ]
+#               }
+#             ]
+#           }
+#         }
+#       }
+#       pollingInterval            = 10
+#       successfulJobsHistoryLimit = 5
+#       failedJobsHistoryLimit     = 5
+#       maxReplicaCount            = 30
+#       rollout = {
+#         strategy = "gradual"
+#       }
+#     }
+#   }
 
-  depends_on = [
-    helm_release.keda
-  ]
-}
+#   depends_on = [
+#     helm_release.keda
+#   ]
+# }
