@@ -41,6 +41,10 @@ output "kube_config" {
   sensitive = true
 }
 
+output "aks_versions" {
+  value = try(data.azurerm_kubernetes_service_versions.aks_version[0].versions, null)
+}
+
 # output "keda_namesapce" {
 #   value = kubernetes_namespace.keda
 # }

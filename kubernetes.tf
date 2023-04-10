@@ -28,51 +28,51 @@ resource "kubernetes_secret" "pipeline-auth" {
   type = "Opaque"
 }
 
-resource "kubernetes_job" "azure-pipelines-agent" {
-  metadata {
-    name      = "azure-pipelines-setup"
-    namespace = kubernetes_namespace.ado-agents.metadata[0].name
-  }
-  spec {
-    active_deadline_seconds    = 300
-    backoff_limit              = 0
-    ttl_seconds_after_finished = 600
-    template {
-      metadata {}
-      spec {
-        container {
-          name              = "azure-pipelines-agent"
-          image             = var.k8s_ado_agent_image
-          image_pull_policy = "Always"
-          env {
-            name  = "AZP_AGENT_NAME"
-            value = "setup-template"
-          }
-          env {
-            name  = "AZP_POOL"
-            value = var.ado_agent_pool_name
-          }
-          env {
-            name = "pipeline-auth"
-            value_from {
-              secret_key_ref {
-                name = "pipeline-auth"
-                key  = "AZP_TOKEN"
-              }
-            }
-          }
-        }
-        restart_policy          = "Never"
-        active_deadline_seconds = 240
-      }
-    }
-  }
-  wait_for_completion = true
+# resource "kubernetes_job" "azure-pipelines-agent" {
+#   metadata {
+#     name      = "azure-pipelines-setup"
+#     namespace = kubernetes_namespace.ado-agents.metadata[0].name
+#   }
+#   spec {
+#     active_deadline_seconds    = 300
+#     backoff_limit              = 0
+#     ttl_seconds_after_finished = 600
+#     template {
+#       metadata {}
+#       spec {
+#         container {
+#           name              = "azure-pipelines-agent"
+#           image             = var.k8s_ado_agent_image
+#           image_pull_policy = "Always"
+#           env {
+#             name  = "AZP_AGENT_NAME"
+#             value = "setup-template"
+#           }
+#           env {
+#             name  = "AZP_POOL"
+#             value = var.ado_agent_pool_name
+#           }
+#           env {
+#             name = "pipeline-auth"
+#             value_from {
+#               secret_key_ref {
+#                 name = "pipeline-auth"
+#                 key  = "AZP_TOKEN"
+#               }
+#             }
+#           }
+#         }
+#         restart_policy          = "Never"
+#         active_deadline_seconds = 240
+#       }
+#     }
+#   }
+#   wait_for_completion = true
 
-  depends_on = [
-    kubernetes_secret.pipeline-auth
-  ]
-}
+#   depends_on = [
+#     kubernetes_secret.pipeline-auth
+#   ]
+# }
 
 
 # data "kubectl_file_documents" "keda" {
@@ -84,6 +84,15 @@ resource "kubernetes_job" "azure-pipelines-agent" {
 #   yaml_body = each.value
 # }
 
+resource "kubectl_manifest" "job_setup" {
+  yaml_body = templatefile("${path.module}/kubernetes/job-setup.yml", {
+    namespace = kubernetes_namespace.ado-agents.metadata[0].name
+    pool_name = var.ado_agent_pool_name
+    image     = var.k8s_ado_agent_image
+  })
+}
+
+
 resource "kubectl_manifest" "scaled_job" {
   yaml_body = templatefile("${path.module}/kubernetes/scaledjob.yml", {
     namespace = kubernetes_namespace.ado-agents.metadata[0].name
@@ -91,7 +100,7 @@ resource "kubectl_manifest" "scaled_job" {
     image     = var.k8s_ado_agent_image
   })
   depends_on = [
-    kubernetes_job.azure-pipelines-agent,
+    kubectl_manifest.job_setup,
     helm_release.keda
   ]
 }

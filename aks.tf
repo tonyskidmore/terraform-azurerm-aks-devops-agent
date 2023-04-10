@@ -1,7 +1,8 @@
-# data "azurerm_kubernetes_service_versions" "aks_version" {
-#   location        = azurerm_resource_group.main.location
-#   include_preview = false
-# }
+data "azurerm_kubernetes_service_versions" "aks_version" {
+  count           = var.location == null ? 0 : 1
+  location        = var.location
+  include_preview = false
+}
 
 module "aks" {
   count               = var.azure_aks_deploy ? 1 : 0
