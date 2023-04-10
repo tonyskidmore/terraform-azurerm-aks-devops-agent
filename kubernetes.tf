@@ -78,7 +78,8 @@ resource "kubectl_manifest" "scaled_job" {
     image     = var.k8s_ado_agent_image
   })
   depends_on = [
-    kubernetes_namespace.ado-agents
+    kubernetes_namespace.ado-agents,
+    helm_release.keda
   ]
 }
 
