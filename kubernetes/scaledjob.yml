@@ -8,7 +8,7 @@ spec:
   triggers:
     - type: azure-pipelines
       metadata:
-        poolID: ${pool_id}
+        poolID: "${pool_id}"
         organizationURLFromEnv: "AZP_URL"
         personalAccessTokenFromEnv: "AZP_TOKEN"
   jobTargetRef:
