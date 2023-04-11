@@ -23,6 +23,9 @@ spec:
             # don't forget the mentioned script change as well as mine
             image: ${image}
             imagePullPolicy: Always
+            env:
+            - name: AZP_POOL
+              value: "${pool_name}"
             envFrom:
               - secretRef:
                   name: pipeline-auth
