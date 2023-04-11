@@ -42,7 +42,7 @@ variable "k8s_ado_agents_namespace" {
 variable "k8s_ado_agent_image" {
   type        = string
   description = "Azure DevOps Agent conatiner image"
-  default     = "lippertmarkus/azure-pipelines-agent:latest"
+  default     = "ghcr.io/tonyskidmore/ado-pipelines-agent:latest"
 }
 
 # start of Azure/aks/azurerm variables

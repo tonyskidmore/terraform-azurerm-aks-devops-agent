@@ -108,11 +108,11 @@ resource "kubectl_manifest" "scaled_job" {
 
 # ╷
 # │ Error: Failed to determine GroupVersionResource for manifest
-# │ 
+# │
 # │   with module.terraform-azurerm-aks-devops-agent.kubernetes_manifest.applications,
 # │   on .terraform/modules/terraform-azurerm-aks-devops-agent/kubernetes.tf line 109, in resource "kubernetes_manifest" "applications":
 # │  109: resource "kubernetes_manifest" "applications" {
-# │ 
+# │
 # │ unmarshaling unknown values is not supported
 # ╵
 

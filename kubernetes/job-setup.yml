@@ -19,7 +19,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: AZP_AGENT_NAME
-              value: setup-template  # needs to include "template"
+              value: placeholder-agent
             - name: AZP_POOL
               value: ${pool_name}
           envFrom:
