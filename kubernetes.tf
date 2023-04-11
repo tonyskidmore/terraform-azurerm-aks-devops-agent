@@ -93,32 +93,46 @@ resource "kubectl_manifest" "job_setup" {
 }
 
 # working
-# resource "kubectl_manifest" "scaled_job" {
-#   yaml_body = templatefile("${path.module}/kubernetes/scaledjob.yml", {
+resource "kubectl_manifest" "scaled_job" {
+  yaml_body = templatefile("${path.module}/kubernetes/scaledjob.yml", {
+    namespace = kubernetes_namespace.ado-agents.metadata[0].name
+    pool_id   = azuredevops_agent_pool.aks.id
+    pool_name = var.ado_agent_pool_name
+    image     = var.k8s_ado_agent_image
+  })
+  depends_on = [
+    kubectl_manifest.job_setup,
+    helm_release.keda
+  ]
+}
+
+# ╷
+# │ Error: Failed to determine GroupVersionResource for manifest
+# │ 
+# │   with module.terraform-azurerm-aks-devops-agent.kubernetes_manifest.applications,
+# │   on .terraform/modules/terraform-azurerm-aks-devops-agent/kubernetes.tf line 109, in resource "kubernetes_manifest" "applications":
+# │  109: resource "kubernetes_manifest" "applications" {
+# │ 
+# │ unmarshaling unknown values is not supported
+# ╵
+
+# https://github.com/hashicorp/terraform-provider-kubernetes/issues/1380
+# https://discuss.hashicorp.com/t/multiple-plan-apply-stages/8320
+
+# resource "kubernetes_manifest" "scaled_job" {
+
+#   manifest = yamldecode(templatefile("${path.module}/kubernetes/scaledjob.yml", {
 #     namespace = kubernetes_namespace.ado-agents.metadata[0].name
 #     pool_id   = azuredevops_agent_pool.aks.id
 #     pool_name = var.ado_agent_pool_name
 #     image     = var.k8s_ado_agent_image
-#   })
+#   }))
+
 #   depends_on = [
 #     kubectl_manifest.job_setup,
 #     helm_release.keda
 #   ]
 # }
-
-resource "kubernetes_manifest" "applications" {
-
-  manifest = yamldecode(templatefile("${path.module}/kubernetes/scaledjob.yml", {
-    namespace = kubernetes_namespace.ado-agents.metadata[0].name
-    pool_id   = azuredevops_agent_pool.aks.id
-    pool_name = var.ado_agent_pool_name
-    image     = var.k8s_ado_agent_image
-  }))
-    depends_on = [
-    kubectl_manifest.job_setup,
-    helm_release.keda
-  ]
-}
 
 
 # ╷
