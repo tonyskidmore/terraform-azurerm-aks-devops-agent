@@ -13,7 +13,7 @@ resource "helm_release" "keda" {
   repository = "https://kedacore.github.io/charts"
   chart      = "keda"
   version    = "2.10.0"
-  namespace = kubernetes_namespace.keda.metadata[0].name
+  namespace  = kubernetes_namespace.keda.metadata[0].name
 
   # set {
   #   name  = "podIdentity.activeDirectory.identity"
