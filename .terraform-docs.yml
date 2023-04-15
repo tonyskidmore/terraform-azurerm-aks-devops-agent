@@ -23,7 +23,7 @@ content: |-
 
   ```hcl
 
-  {{ include "examples/001-basic-cluster/main.tf" }}
+  {{ include "examples/local/main.tf" }}
 
   ```
   {{ .Resources }}

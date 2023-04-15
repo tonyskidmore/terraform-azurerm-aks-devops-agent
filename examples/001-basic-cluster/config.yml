@@ -1,6 +1,0 @@
-clusters:
-  - name: prod-blue
-    region: europe-west1-a
-    network: network-a
-    min_nodes: 3
-    max_nodes: 6

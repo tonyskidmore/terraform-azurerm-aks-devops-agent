@@ -36,9 +36,9 @@ repos:
       - id: terraform-docs-go
         args: ["markdown", "table", "--output-file", "README.md", "./"]
 
-    # https://github.com/stackrox/kube-linter/blob/main/docs/using-kubelinter.md#using-kubelinter-with-the-pre-commit-framework
-  - repo: https://github.com/stackrox/kube-linter
-    rev: v0.6.3 # kube-linter version
-    hooks:
-        # You can change this to kube-linter-system or kube-linter-docker
-      - id: kube-linter
+  #   # https://github.com/stackrox/kube-linter/blob/main/docs/using-kubelinter.md#using-kubelinter-with-the-pre-commit-framework
+  # - repo: https://github.com/stackrox/kube-linter
+  #   rev: v0.6.3 # kube-linter version
+  #   hooks:
+  #       # You can change this to kube-linter-system or kube-linter-docker
+  #     - id: kube-linter

@@ -1,4 +1,4 @@
-# terraform-azurerm-aks-devops-agent
+# terraform-kubernetes-azure-devops-agent
 
 <!-- BEGIN_TF_DOCS -->
 
@@ -8,53 +8,18 @@
 
 ```hcl
 
-resource "random_id" "prefix" {
-  byte_length = 8
+module "aks-devops-agents" {
+  source      = "../../"
+  ado_ext_pat = var.ado_ext_pat
+  ado_org     = var.ado_org
 }
-
-resource "azurerm_resource_group" "main" {
-  count = var.create_resource_group ? 1 : 0
-
-  location = var.location
-  name     = coalesce(var.resource_group_name, "${random_id.prefix.hex}-rg")
-}
-
-locals {
-  resource_group = {
-    name     = var.create_resource_group ? azurerm_resource_group.main[0].name : var.resource_group_name
-    location = var.location
-  }
-}
-
-resource "azurerm_virtual_network" "test" {
-  address_space       = ["10.52.0.0/16"]
-  location            = local.resource_group.location
-  name                = "${random_id.prefix.hex}-vn"
-  resource_group_name = local.resource_group.name
-}
-
-resource "azurerm_subnet" "test" {
-  address_prefixes                          = ["10.52.0.0/24"]
-  name                                      = "${random_id.prefix.hex}-sn"
-  resource_group_name                       = local.resource_group.name
-  virtual_network_name                      = azurerm_virtual_network.test.name
-  private_endpoint_network_policies_enabled = true
-}
-
-# module "aks-agents" {
-#   source = "../.."
-
-#   prefix              = "prefix-${random_id.prefix.hex}"
-#   resource_group_name = local.resource_group.name
-#   vnet_subnet_id      = azurerm_subnet.test.id
-# }
 
 ```
 ## Resources
 
 | Name | Type |
 |------|------|
-| [azuredevops_agent_pool.aks](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/agent_pool) | resource |
+| [azuredevops_agent_pool.k8s](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/agent_pool) | resource |
 | [helm_release.keda](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [kubectl_manifest.job_setup](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
 | [kubectl_manifest.scaled_job](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |

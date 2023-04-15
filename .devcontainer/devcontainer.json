@@ -28,7 +28,8 @@
 				"ms-azuretools.vscode-azureterraform",
 				"shardulm94.trailing-spaces",
 				"streetsidesoftware.code-spell-checker",
-				"wwm.better-align"
+				"wwm.better-align",
+				"GitHub.copilot"
 			]
 		}
 	}

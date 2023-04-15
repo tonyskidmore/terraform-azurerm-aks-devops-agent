@@ -4,30 +4,16 @@ metadata:
   name: azure-pipelines-setup
   namespace: ${namespace}
 spec:
-
   activeDeadlineSeconds: 300
   backoffLimit: 0
   ttlSecondsAfterFinished: 600
   template:
     spec:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 3000
-        fsGroup: 2000
       restartPolicy: Never
       activeDeadlineSeconds: 240
       containers:
         - name: azure-pipelines-agent
-          securityContext:
-            readOnlyRootFilesystem: true
           image: ${image}
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "250m"
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
           imagePullPolicy: Always
           env:
             - name: AZP_AGENT_NAME

@@ -96,7 +96,7 @@ resource "kubectl_manifest" "job_setup" {
 resource "kubectl_manifest" "scaled_job" {
   yaml_body = templatefile("${path.module}/kubernetes/scaledjob.yml", {
     namespace = kubernetes_namespace.ado-agents.metadata[0].name
-    pool_id   = azuredevops_agent_pool.aks.id
+    pool_id   = azuredevops_agent_pool.k8s.id
     pool_name = var.ado_agent_pool_name
     image     = var.k8s_ado_agent_image
   })
