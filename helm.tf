@@ -1,19 +1,24 @@
 resource "kubernetes_namespace" "keda" {
+  count = var.keda_install ? 1 : 0
   metadata {
-    name = "keda"
+    name = var.keda_namespace
   }
 }
 
-# https://github.com/hashicorp/terraform-provider-helm/issues/939
-
+data "github_release" "keda" {
+  count       = var.keda_version == "latest" ? 1 : 0 && var.keda_install ? 1 : 0
+  repository  = "keda"
+  owner       = "kedacore"
+  retrieve_by = "latest"
+}
 
 resource "helm_release" "keda" {
-
+  count      = var.keda_install ? 1 : 0
   name       = "keda"
   repository = "https://kedacore.github.io/charts"
   chart      = "keda"
-  version    = "2.10.0"
-  namespace  = kubernetes_namespace.keda.metadata[0].name
+  version    = local.keda_version
+  namespace  = try(kubernetes_namespace.keda[0].metadata[0].name, null)
 
   # set {
   #   name  = "podIdentity.activeDirectory.identity"
