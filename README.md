@@ -1,1 +1,1 @@
-# terraform-azurerm-aks-devops-agent
+# terraform-kubernetes-azure-devops-agent
