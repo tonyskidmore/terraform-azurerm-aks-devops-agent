@@ -29,3 +29,6 @@ override.tf.json
 *tfplan*
 
 **/trace.log
+
+*/__pycache__/
+*.pyc
