@@ -8,18 +8,20 @@
 				"version": "latest"
 			},
 			"ghcr.io/devcontainers/features/go:1": {},
-			"ghcr.io/devcontainers/features/python:1": {},
-			"ghcr.io/devcontainers/features/terraform:1": {
-				"version": "1.4.5"
-			}
+			"ghcr.io/devcontainers/features/python:1": {}
 	},
 	"remoteUser": "vscode",
 	// .pre-commit-<uuid> creates a unique cache directory in $HOME/.pre-commit for each project
 	// specify a new uuid per project e.g. using uuidgen
 	"mounts": [
 		"source=${localEnv:HOME}/.pre-commit-ec1a2b2d-3d98-4b31-967d-43a464f6d824,target=/home/vscode/.pre-commit,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.kube,target=/home/vscode/.kube,type=bind,consistency=cached"
 	],
+	// "containerEnv": {
+	// 	"AZDO_ORG_SERVICE_URL": "https://dev.azure.com/ado-tests",
+	// 	"AZDO_PERSONAL_ACCESS_TOKEN": "dummy"
+	// },
 	"remoteEnv": {
 		"PRE_COMMIT_HOME": "/home/vscode/.pre-commit"
 	},
@@ -33,7 +35,9 @@
 				"shardulm94.trailing-spaces",
 				"streetsidesoftware.code-spell-checker",
 				"wwm.better-align",
-				"GitHub.copilot"
+				"GitHub.copilot",
+				"ms-python.flake8",
+        "ms-python.pylint"
 			]
 		}
 	}

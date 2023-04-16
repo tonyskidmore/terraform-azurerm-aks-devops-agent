@@ -13,5 +13,4 @@ fi
 
 pip install --upgrade pip
 pip install --upgrade setuptools
-pwd
 pip install -r tests/requirements.txt
