@@ -14,7 +14,7 @@
 	// .pre-commit-<uuid> creates a unique cache directory in $HOME/.pre-commit for each project
 	// specify a new uuid per project e.g. using uuidgen
 	"mounts": [
-		"source=${localEnv:HOME}/.pre-commit-ec1a2b2d-3d98-4b31-967d-43a464f6d824,target=/home/vscode/.pre-commit,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.pre-commit-bfe65d83-1090-4032-8962-af18c342e5e5,target=/home/vscode/.pre-commit,type=bind,consistency=cached",
 		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
 		"source=${localEnv:HOME}/.kube,target=/home/vscode/.kube,type=bind,consistency=cached"
 	],
