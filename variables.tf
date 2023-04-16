@@ -9,6 +9,12 @@ variable "ado_org" {
   description = "Azure DevOps organization"
 }
 
+variable "ado_create_agent_pool" {
+  type        = bool
+  description = "Whether to create the agent pool as part of this module"
+  default     = true
+}
+
 variable "ado_agent_pool_name" {
   type        = string
   description = "Azure DevOps Agent Pool Name"

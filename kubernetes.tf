@@ -77,7 +77,7 @@ resource "kubernetes_secret" "pipeline-auth" {
 # }
 
 resource "kubectl_manifest" "job_setup" {
-  count     = var.k8s_ado_agent_type == "job" ? 1 : 0
+  count = var.k8s_ado_agent_type == "job" ? 1 : 0
   yaml_body = templatefile("${path.module}/kubernetes/job-setup.yml", {
     namespace = kubernetes_namespace.ado-agents.metadata[0].name
     pool_name = var.ado_agent_pool_name
@@ -87,10 +87,10 @@ resource "kubectl_manifest" "job_setup" {
 
 # working
 resource "kubectl_manifest" "scaled_job" {
-  count     = var.k8s_ado_agent_type == "job" ? 1 : 0
+  count = var.k8s_ado_agent_type == "job" ? 1 : 0
   yaml_body = templatefile("${path.module}/kubernetes/scaledjob.yml", {
     namespace = kubernetes_namespace.ado-agents.metadata[0].name
-    pool_id   = azuredevops_agent_pool.k8s.id
+    pool_id   = local.pool_id
     pool_name = var.ado_agent_pool_name
     image     = var.k8s_ado_agent_image
   })
