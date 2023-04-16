@@ -61,6 +61,7 @@ jobs:
 
       - name: Install Python packages
         run: pip install -r requirements.txt
+
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v2
         with:
@@ -69,7 +70,7 @@ jobs:
       - name: Patch .pre-commit-config.yaml
         run: |
           sed -i '/terraform-docs/,+4d' \
-            "$GITHUB_WORKSPACE/.pre-commit-config.yaml"
+            "$GITHUB_WORKSPACE/.pre-commit- config.yaml"
           sed -i '/- id: end-of-file-fixer/d' \
             "$GITHUB_WORKSPACE/.pre-commit-config.yaml"
 
