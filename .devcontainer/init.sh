@@ -9,3 +9,7 @@ then
   pre-commit install-hooks
   terrascan init
 fi
+
+pip install --upgrade pip
+pip install --upgrade setuptools
+pip install -r ../tests/requirements.txt

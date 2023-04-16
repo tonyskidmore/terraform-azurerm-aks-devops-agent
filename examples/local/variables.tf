@@ -9,6 +9,18 @@ variable "ado_org" {
   description = "Azure DevOps organization"
 }
 
+variable "k8s_ado_agents_namespace_annotations" {
+  type        = map(string)
+  description = "Kubernetes Azure DevOps Agent namespace annotations"
+  default     = {}
+}
+
+variable "k8s_ado_agents_namespace_labels" {
+  type        = map(string)
+  description = "Kubernetes Azure DevOps Agent namespace annotations"
+  default     = {}
+}
+
 variable "keda_namespace" {
   type        = string
   description = "Kubernetes namespace name for KEDA install"

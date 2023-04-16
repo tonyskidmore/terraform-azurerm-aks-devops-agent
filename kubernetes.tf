@@ -1,16 +1,8 @@
 resource "kubernetes_namespace" "ado-agents" {
   metadata {
-
-    # TODO: include option for annotations and labels
-    # annotations = {
-    #   name = "example-annotation"
-    # }
-
-    # labels = {
-    #   mylabel = "label-value"
-    # }
-
-    name = var.k8s_ado_agents_namespace
+    annotations = var.k8s_ado_agents_namespace_annotations
+    labels      = var.k8s_ado_agents_namespace_labels
+    name        = var.k8s_ado_agents_namespace
   }
 }
 
@@ -85,6 +77,7 @@ resource "kubernetes_secret" "pipeline-auth" {
 # }
 
 resource "kubectl_manifest" "job_setup" {
+  count     = var.k8s_ado_agent_type == "job" ? 1 : 0
   yaml_body = templatefile("${path.module}/kubernetes/job-setup.yml", {
     namespace = kubernetes_namespace.ado-agents.metadata[0].name
     pool_name = var.ado_agent_pool_name
@@ -94,6 +87,7 @@ resource "kubectl_manifest" "job_setup" {
 
 # working
 resource "kubectl_manifest" "scaled_job" {
+  count     = var.k8s_ado_agent_type == "job" ? 1 : 0
   yaml_body = templatefile("${path.module}/kubernetes/scaledjob.yml", {
     namespace = kubernetes_namespace.ado-agents.metadata[0].name
     pool_id   = azuredevops_agent_pool.k8s.id
@@ -101,7 +95,7 @@ resource "kubectl_manifest" "scaled_job" {
     image     = var.k8s_ado_agent_image
   })
   depends_on = [
-    kubectl_manifest.job_setup,
+    kubectl_manifest.job_setup[0],
     helm_release.keda
   ]
 }

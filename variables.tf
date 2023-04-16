@@ -27,17 +27,39 @@ variable "ado_agent_pool_auto_update" {
   default     = true
 }
 
-
 variable "k8s_ado_agents_namespace" {
   type        = string
   description = "Kubernetes Azure DevOps Agent namespace"
   default     = "ado-agents"
 }
 
+variable "k8s_ado_agents_namespace_annotations" {
+  type        = map(string)
+  description = "Kubernetes Azure DevOps Agent namespace annotations"
+  default     = {}
+}
+
+variable "k8s_ado_agents_namespace_labels" {
+  type        = map(string)
+  description = "Kubernetes Azure DevOps Agent namespace labels"
+  default     = {}
+}
+
 variable "k8s_ado_agent_image" {
   type        = string
-  description = "Azure DevOps Agent conatiner image"
-  default     = "ghcr.io/tonyskidmore/ado-pipelines-agent:latest"
+  description = "Azure DevOps Agent container image"
+  default     = "ghcr.io/tonyskidmore/terraform-kubernetes-azure-devops-agent-base-image:stable"
+}
+
+variable "k8s_ado_agent_type" {
+  type        = string
+  description = "Azure DevOps Agent type, Job or Deployment"
+  default     = "job"
+
+  validation {
+    condition     = contains(["job", "deployment"], var.k8s_ado_agent_type)
+    error_message = "The k8s_ado_agent_type variable must be job or deployment."
+  }
 }
 
 variable "keda_install" {
@@ -53,7 +75,7 @@ variable "keda_namespace" {
 
   validation {
     condition     = can(regex("^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$", var.keda_namespace))
-    error_message = "keda_namespace must be a valid Kubernetes namespace name."
+    error_message = "Namespace must be a lowercase RFC 1123 subdomain: lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character."
   }
 }
 
