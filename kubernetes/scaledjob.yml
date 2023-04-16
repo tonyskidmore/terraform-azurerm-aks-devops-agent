@@ -1,0 +1,33 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledJob
+metadata:
+  name: azure-pipelines-scaledjob
+  namespace: ${namespace}
+spec:
+  triggers:
+    - type: azure-pipelines
+      metadata:
+        poolID: "${pool_id}"
+        organizationURLFromEnv: "AZP_URL"
+        personalAccessTokenFromEnv: "AZP_TOKEN"
+  jobTargetRef:
+    activeDeadlineSeconds: 14400  # 4h
+    template:
+      spec:
+        restartPolicy: Never
+        containers:
+          - name: azure-pipelines-agent
+            image: ${image}
+            imagePullPolicy: Always
+            env:
+            - name: AZP_POOL
+              value: "${pool_name}"
+            envFrom:
+              - secretRef:
+                  name: pipeline-auth
+  pollingInterval: 10
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
+  maxReplicaCount: 30
+  rollout:
+    strategy: gradual
