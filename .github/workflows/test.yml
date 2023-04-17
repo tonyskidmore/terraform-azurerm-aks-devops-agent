@@ -1,0 +1,46 @@
+---
+
+name: test
+
+# yamllint disable rule:truthy
+on:
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Create k8s Kind Cluster
+        uses: helm/kind-action@v1.4.0
+        with:
+          node_image: kindest/node:v1.25.8@sha256:00d3f5314cc35327706776e95b2f8e504198ce59ac545d0200a89e69fce10b7f
+          cluster_name: kind
+
+      - name: Run a multi-line script
+        run: |
+          kubectl version
+          kubectl config get-contexts
+          kubectl get nodes
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+
+      - name: Install Python packages
+        run: pip install -r requirements.txt
+
+      - name: Test with pytest
+        run: |
+          pytest --junitxml=test-results.xml
+        working-directory: ./tests
+
+      - uses: actions/upload-artifact@v2
+        if: success() || failure()
+        with:
+          name: test-results
+          path: test-results.xml

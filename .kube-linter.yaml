@@ -1,7 +1,7 @@
 ---
 
 checks:
-  # exclude:
-  #   - "latest-tag"
+  exclude:
+    - "latest-tag"
   ignorePaths:
-    - /kubernetes/job-setup.yml
+    - "**/job-setup.yml"

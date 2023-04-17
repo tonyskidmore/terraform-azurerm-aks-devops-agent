@@ -1,3 +1,5 @@
+---
+
 apiVersion: keda.sh/v1alpha1
 kind: ScaledJob
 metadata:
@@ -20,8 +22,8 @@ spec:
             image: ${image}
             imagePullPolicy: Always
             env:
-            - name: AZP_POOL
-              value: "${pool_name}"
+              - name: AZP_POOL
+                value: "${pool_name}"
             envFrom:
               - secretRef:
                   name: pipeline-auth

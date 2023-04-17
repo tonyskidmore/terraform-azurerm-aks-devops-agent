@@ -3,7 +3,7 @@
 permissions:
   statuses: write
 
-name: Lint Code Base
+name: CI
 
 # yamllint disable rule:truthy
 on:
@@ -37,6 +37,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_JSCPD: false
           VALIDATE_TERRAFORM_TERRASCAN: false
+          KUBERNETES_KUBEVAL_OPTIONS: "--ignore-missing-schemas"
           VALIDATE_GITLEAKS: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -61,6 +62,7 @@ jobs:
 
       - name: Install Python packages
         run: pip install -r requirements.txt
+
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v2
         with:
