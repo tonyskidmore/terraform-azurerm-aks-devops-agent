@@ -20,7 +20,8 @@ jobs:
       #     path: 'tests/*.xml'
       #     reporter: jest-junit
 
-      - uses: actions/download-artifact@v3
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
         with:
           name: test-results
           path: tests/
