@@ -8,9 +8,7 @@ on:
     workflows: ['tests']
     types:
       - completed
-    # TODO: remove
-    branches:
-      - 'security**'
+
 jobs:
   report:
     runs-on: ubuntu-latest
