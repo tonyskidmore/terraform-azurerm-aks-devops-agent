@@ -37,7 +37,8 @@ jobs:
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_JSCPD: false
           VALIDATE_TERRAFORM_TERRASCAN: false
-          VALIDATE_KUBERNETES_KUBECONFORM: false
+          # VALIDATE_KUBERNETES_KUBECONFORM: false
+          KUBERNETES_KUBECONFORM_OPTIONS: "--ignore-missing-schemas"
           VALIDATE_GITLEAKS: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
