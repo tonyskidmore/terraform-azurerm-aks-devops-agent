@@ -37,6 +37,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_JSCPD: false
           VALIDATE_TERRAFORM_TERRASCAN: false
+          VALIDATE_KUBERNETES_KUBECONFORM: false
           VALIDATE_GITLEAKS: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -70,7 +71,7 @@ jobs:
       - name: Patch .pre-commit-config.yaml
         run: |
           sed -i '/terraform-docs/,+4d' \
-            "$GITHUB_WORKSPACE/.pre-commit- config.yaml"
+            "$GITHUB_WORKSPACE/.pre-commit-config.yaml"
           sed -i '/- id: end-of-file-fixer/d' \
             "$GITHUB_WORKSPACE/.pre-commit-config.yaml"
 
