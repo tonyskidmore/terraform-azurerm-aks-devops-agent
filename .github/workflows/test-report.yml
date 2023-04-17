@@ -3,7 +3,7 @@
 name: 'Test Report'
 on:
   workflow_run:
-    workflows: ['CI']
+    workflows: ['tests']
     types:
       - completed
 jobs:
@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: dorny/test-reporter@v1
       with:
-        artifact: test-results            # artifact name
-        name: tftest tests                # Name of the check run which will be created
-        path: '*.xml'                     # Path to test results (inside artifact .zip)
-        reporter: jest-junit              # Format of test results
+        artifact: test-results
+        name: tftest tests
+        path: '*.xml'
+        reporter: jest-junit

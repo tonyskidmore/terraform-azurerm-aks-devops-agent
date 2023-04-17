@@ -82,31 +82,3 @@ jobs:
           tflint --init
           tflint --version
           pre-commit run --all-files
-
-  # test:
-  #   name: tests
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - name: Checkout Code
-  #       uses: actions/checkout@v3
-
-  #     - name: Setup Python
-  #       uses: actions/setup-python@v4
-  #       with:
-  #         python-version: '3.9'
-  #         cache: 'pip'
-
-  #     - name: Install Python packages
-  #       run: pip install -r requirements.txt
-
-  #     - name: Test with pytest
-  #       run: |
-  #         pytest --junitxml=test-results.xml
-  #       working-directory: ./tests
-
-  #     - uses: actions/upload-artifact@v2
-  #       if: success() || failure()
-  #       with:
-  #         name: test-results
-  #         path: test-results.xml
