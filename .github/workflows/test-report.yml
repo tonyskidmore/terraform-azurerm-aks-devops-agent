@@ -16,5 +16,5 @@ jobs:
         with:
           artifact: test-results
           name: tftest tests
-          path: '*.xml'
+          path: 'tests/*.xml'
           reporter: jest-junit
