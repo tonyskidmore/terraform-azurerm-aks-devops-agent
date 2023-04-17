@@ -40,6 +40,7 @@ jobs:
       - name: Test with pytest
         run: |
           pytest --junitxml=test-results.xml
+          cat test-results.xml
         working-directory: tests/
         env:
           AZDO_ORG_SERVICE_URL: ${{ secrets.ado_org }}
@@ -56,31 +57,31 @@ jobs:
           terraform init
         working-directory: ./examples/local
 
-      # - name: Terraform plan
-      #   run: |
-      #     terraform plan -out tfplan
-      #   working-directory: examples/local
-      #   env:
-      #     AZDO_ORG_SERVICE_URL: ${{ secrets.ado_org }}
-      #     AZDO_PERSONAL_ACCESS_TOKEN: ${{ secrets.ado_ext_pat }}
+      - name: Terraform plan
+        run: |
+          terraform plan -out tfplan
+        working-directory: examples/local
+        env:
+          AZDO_ORG_SERVICE_URL: ${{ secrets.ado_org }}
+          AZDO_PERSONAL_ACCESS_TOKEN: ${{ secrets.ado_ext_pat }}
 
-      # - name: Terraform apply
-      #   run: |
-      #     terraform apply tfplan
-      #   working-directory: examples/local
+      - name: Terraform apply
+        run: |
+          terraform apply tfplan
+        working-directory: examples/local
 
-      # - name: Terraform plan destroy
-      #   run: |
-      #     terraform plan -destroy -out tfplan
-      #   working-directory: examples/local
-      #   env:
-      #     AZDO_ORG_SERVICE_URL: ${{ secrets.ado_org }}
-      #     AZDO_PERSONAL_ACCESS_TOKEN: ${{ secrets.ado_ext_pat }}
+      - name: Terraform plan destroy
+        run: |
+          terraform plan -destroy -out tfplan
+        working-directory: examples/local
+        env:
+          AZDO_ORG_SERVICE_URL: ${{ secrets.ado_org }}
+          AZDO_PERSONAL_ACCESS_TOKEN: ${{ secrets.ado_ext_pat }}
 
-      # - name: Terraform apply
-      #   run: |
-      #     terraform apply tfplan
-      #   working-directory: examples/local
+      - name: Terraform apply
+        run: |
+          terraform apply tfplan
+        working-directory: examples/local
 
       - uses: actions/upload-artifact@v2
         if: success() || failure()
