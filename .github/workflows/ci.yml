@@ -3,7 +3,7 @@
 permissions:
   statuses: write
 
-name: Lint Code Base
+name: CI
 
 # yamllint disable rule:truthy
 on:
@@ -37,9 +37,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_JSCPD: false
           VALIDATE_TERRAFORM_TERRASCAN: false
-          # VALIDATE_KUBERNETES_KUBECONFORM: false
           KUBERNETES_KUBEVAL_OPTIONS: "--ignore-missing-schemas"
-          # KUBERNETES_KUBECONFORM_OPTIONS: "--ignore-missing-schemas"
           VALIDATE_GITLEAKS: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -84,3 +82,31 @@ jobs:
           tflint --init
           tflint --version
           pre-commit run --all-files
+
+  test:
+    name: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+
+      - name: Install Python packages
+        run: pip install -r requirements.txt
+
+      - name: Test with pytest
+        run: |
+          pytest --junitxml=test-results.xml
+        working-directory: ./tests
+
+      - uses: actions/upload-artifact@v2
+        if: success() || failure()
+        with:
+          name: test-results
+          path: test-results.xml
