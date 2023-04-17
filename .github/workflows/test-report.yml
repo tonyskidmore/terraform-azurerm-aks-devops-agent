@@ -1,6 +1,8 @@
 ---
 
 name: 'Test Report'
+
+# yamllint disable rule:truthy
 on:
   workflow_run:
     workflows: ['tests']
@@ -10,9 +12,9 @@ jobs:
   report:
     runs-on: ubuntu-latest
     steps:
-    - uses: dorny/test-reporter@v1
-      with:
-        artifact: test-results
-        name: tftest tests
-        path: '*.xml'
-        reporter: jest-junit
+      - uses: dorny/test-reporter@v1
+        with:
+          artifact: test-results
+          name: tftest tests
+          path: '*.xml'
+          reporter: jest-junit
