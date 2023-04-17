@@ -1,6 +1,6 @@
 ---
 
-name: 'Test Report'
+name: test-report
 
 # yamllint disable rule:truthy
 on:

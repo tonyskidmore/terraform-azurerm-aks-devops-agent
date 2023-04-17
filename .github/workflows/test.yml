@@ -1,6 +1,6 @@
 ---
 
-name: test
+name: tests
 
 # yamllint disable rule:truthy
 on:
@@ -38,6 +38,9 @@ jobs:
         run: |
           pytest --junitxml=test-results.xml
         working-directory: ./tests
+        env:
+          AZDO_ORG_SERVICE_URL: ${{ secrets.ado_org }}
+          AZDO_PERSONAL_ACCESS_TOKEN: ${{ secrets.ado_ext_pat }}
 
       - uses: actions/upload-artifact@v2
         if: success() || failure()
