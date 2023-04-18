@@ -1,0 +1,10 @@
+---
+
+container:
+  image: "replace"
+
+pool:
+  name: "replace"
+  id: "replace"
+
+namespace: "replace"

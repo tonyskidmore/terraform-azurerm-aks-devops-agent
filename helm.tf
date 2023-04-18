@@ -19,15 +19,36 @@ resource "helm_release" "keda" {
   chart      = "keda"
   version    = local.keda_version
   namespace  = try(kubernetes_namespace.keda[0].metadata[0].name, null)
+}
 
-  # set {
-  #   name  = "podIdentity.activeDirectory.identity"
-  #   value = "${var.aad_pod_identity_name}-binding"
-  # }
+resource "helm_release" "job" {
+  count      = var.k8s_ado_agent_type == "job" ? 1 : 0
+  name       = "job"
+  chart      = "${path.module}/helm/charts/job"
+  namespace  = try(kubernetes_namespace.ado-agents.metadata[0].name, null)
 
-  # set {
-  #   name  = "http.timeout"
-  #   value = "90000"
-  # }
+  set {
+    name  = "container.image"
+    value = var.k8s_ado_agent_image
+  }
+
+  set {
+    name  = "pool.name"
+    value = var.ado_agent_pool_name
+  }
+
+  set {
+    name  = "pool.id"
+    value = local.pool_id
+  }
+
+  set {
+    name  = "namespace"
+    value = var.k8s_ado_agents_namespace
+  }
+
+  depends_on = [
+    helm_release.keda
+  ]
 
 }

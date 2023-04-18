@@ -76,29 +76,30 @@ resource "kubernetes_secret" "pipeline-auth" {
 #   yaml_body = each.value
 # }
 
-resource "kubectl_manifest" "job_setup" {
-  count = var.k8s_ado_agent_type == "job" ? 1 : 0
-  yaml_body = templatefile("${path.module}/kubernetes/job-setup.yml", {
-    namespace = kubernetes_namespace.ado-agents.metadata[0].name
-    pool_name = var.ado_agent_pool_name
-    image     = var.k8s_ado_agent_image
-  })
-}
+# TODO: testing with Helm
+# resource "kubectl_manifest" "job_setup" {
+#   count = var.k8s_ado_agent_type == "job" ? 1 : 0
+#   yaml_body = templatefile("${path.module}/kubernetes/job-setup.yml", {
+#     namespace = kubernetes_namespace.ado-agents.metadata[0].name
+#     pool_name = var.ado_agent_pool_name
+#     image     = var.k8s_ado_agent_image
+#   })
+# }
 
-# working
-resource "kubectl_manifest" "scaled_job" {
-  count = var.k8s_ado_agent_type == "job" ? 1 : 0
-  yaml_body = templatefile("${path.module}/kubernetes/scaledjob.yml", {
-    namespace = kubernetes_namespace.ado-agents.metadata[0].name
-    pool_id   = local.pool_id
-    pool_name = var.ado_agent_pool_name
-    image     = var.k8s_ado_agent_image
-  })
-  depends_on = [
-    kubectl_manifest.job_setup[0],
-    helm_release.keda
-  ]
-}
+# # working
+# resource "kubectl_manifest" "scaled_job" {
+#   count = var.k8s_ado_agent_type == "job" ? 1 : 0
+#   yaml_body = templatefile("${path.module}/kubernetes/scaledjob.yml", {
+#     namespace = kubernetes_namespace.ado-agents.metadata[0].name
+#     pool_id   = local.pool_id
+#     pool_name = var.ado_agent_pool_name
+#     image     = var.k8s_ado_agent_image
+#   })
+#   depends_on = [
+#     kubectl_manifest.job_setup[0],
+#     helm_release.keda
+#   ]
+# }
 
 # ╷
 # │ Error: Failed to determine GroupVersionResource for manifest

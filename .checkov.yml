@@ -3,9 +3,9 @@
 directory:
   - .
 
-skip-check:
-  - CKV_GHA_*
-  - CKV2_GHA_*
+# skip-check:
+#   - CKV_GHA_*
+#   - CKV2_GHA_*
 
 skip-path:
   - job-setup.yml

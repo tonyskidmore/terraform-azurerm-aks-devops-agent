@@ -1,5 +1,7 @@
 ---
 
+permissions: read-all
+
 name: tests
 
 # yamllint disable rule:truthy

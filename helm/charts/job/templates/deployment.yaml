@@ -1,0 +1,27 @@
+---
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: azure-pipelines-setup
+  namespace: "{{ .Values.namespace }}"
+spec:
+  activeDeadlineSeconds: 300
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 600
+  template:
+    spec:
+      restartPolicy: Never
+      activeDeadlineSeconds: 240
+      containers:
+        - name: azure-pipelines-agent
+          image: "{{ .Values.container.image}}"
+          imagePullPolicy: Always
+          env:
+            - name: AZP_AGENT_NAME
+              value: placeholder-agent
+            - name: AZP_POOL
+              value: {{ .Values.pool.name}}
+          envFrom:
+            - secretRef:
+                name: pipeline-auth
