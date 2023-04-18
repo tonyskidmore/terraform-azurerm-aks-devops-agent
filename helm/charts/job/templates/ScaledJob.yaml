@@ -19,7 +19,7 @@ spec:
         restartPolicy: Never
         containers:
           - name: azure-pipelines-agent
-            image: ${image}
+            image: "{{ .Values.container.image}}"
             imagePullPolicy: Always
             env:
               - name: AZP_POOL

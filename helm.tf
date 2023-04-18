@@ -22,10 +22,10 @@ resource "helm_release" "keda" {
 }
 
 resource "helm_release" "job" {
-  count      = var.k8s_ado_agent_type == "job" ? 1 : 0
-  name       = "job"
-  chart      = "${path.module}/helm/charts/job"
-  namespace  = try(kubernetes_namespace.ado-agents.metadata[0].name, null)
+  count     = var.k8s_ado_agent_type == "job" ? 1 : 0
+  name      = "job"
+  chart     = "${path.module}/helm/charts/job"
+  namespace = try(kubernetes_namespace.ado-agents.metadata[0].name, null)
 
   set {
     name  = "container.image"

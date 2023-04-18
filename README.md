@@ -35,9 +35,8 @@ module "k8s-azure-devops-agents" {
 | Name | Type |
 |------|------|
 | [azuredevops_agent_pool.k8s](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/resources/agent_pool) | resource |
+| [helm_release.job](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.keda](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [kubectl_manifest.job_setup](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
-| [kubectl_manifest.scaled_job](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
 | [kubernetes_namespace.ado-agents](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [kubernetes_namespace.keda](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [kubernetes_secret.pipeline-auth](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) | resource |
@@ -76,7 +75,6 @@ module "k8s-azure-devops-agents" {
 | <a name="provider_azuredevops"></a> [azuredevops](#provider\_azuredevops) | 0.4.0 |
 | <a name="provider_github"></a> [github](#provider\_github) | 5.22.0 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | 2.9.0 |
-| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | 1.14.0 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.19.0 |
 
 
