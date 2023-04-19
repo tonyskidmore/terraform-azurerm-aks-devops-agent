@@ -66,7 +66,8 @@ module "k8s-azure-devops-agents" {
 
 | Name | Description |
 |------|-------------|
-| <a name="output_keda_latest_version"></a> [keda\_latest\_version](#output\_keda\_latest\_version) | n/a |
+| <a name="output_ado_pool_id"></a> [ado\_pool\_id](#output\_ado\_pool\_id) | Azure DevOps Agent Pool ID |
+| <a name="output_keda_latest_version"></a> [keda\_latest\_version](#output\_keda\_latest\_version) | KEDA version installed |
 
 ## Providers
 
