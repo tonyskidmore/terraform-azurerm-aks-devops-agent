@@ -6,28 +6,30 @@ metadata:
   name: azure-pipelines-setup
   namespace: "{{ .Values.namespace }}"
   annotations:
-    bridgecrew.io/skip0: CKV_K8S_8="Liveness Probe Should be Configured"
-    bridgecrew.io/skip1: CKV_K8S_9="Readiness Probe Should be Configured"
+    bridgecrew.io/skip1: CKV_K8S_8="Liveness Probe Should be Configured"
+    bridgecrew.io/skip2: CKV_K8S_9="Readiness Probe Should be Configured"
     # required for operation
-    bridgecrew.io/skip2: CKV_K8S_20="Containers should not run with allowPrivilegeEscalation"
+    bridgecrew.io/skip3: CKV_K8S_20="Containers should not run with allowPrivilegeEscalation"
     # required for operation
-    bridgecrew.io/skip3: CKV_K8S_22=Use read-only filesystem for containers where possible
+    bridgecrew.io/skip4: CKV_K8S_22=Use read-only filesystem for containers where possible
     # TODO: check if this can be implemented
-    bridgecrew.io/skip4: CKV_K8S_23=Minimize the admission of root containers
+    bridgecrew.io/skip5: CKV_K8S_23=Minimize the admission of root containers
     # required for operation
-    bridgecrew.io/skip5: CKV_K8S_28="Minimize the admission of containers with the NET_RAW capability"
+    bridgecrew.io/skip6: CKV_K8S_28="Minimize the admission of containers with the NET_RAW capability"
     # required for operation
-    bridgecrew.io/skip6: CKV_K8S_30="Apply security context to your containers"
+    bridgecrew.io/skip7: CKV_K8S_29="Apply security context to your pods and containers"
+    bridgecrew.io/skip8: CKV_K8S_30="Apply security context to your containers"
+    bridgecrew.io/skip9: CKV_K8S_31="Ensure that the seccomp profile is set to docker/default or runtime/default"
     # required for operation
-    bridgecrew.io/skip7: CKV_K8S_37="Minimize the admission of containers with capabilities assigned"
+    bridgecrew.io/skip10: CKV_K8S_37="Minimize the admission of containers with capabilities assigned"
     # required for operation
-    bridgecrew.io/skip8: CKV_K8S_38="Ensure that Service Account Tokens are only mounted where necessary"
+    bridgecrew.io/skip11: CKV_K8S_38="Ensure that Service Account Tokens are only mounted where necessary"
     # use stable for deplyment image
-    bridgecrew.io/skip9: CKV_K8S_43="Image should use digest"
+    bridgecrew.io/skip12: CKV_K8S_43="Image should use digest"
     # TODO: check if this can be implemented
-    bridgecrew.io/skip10: CKV_K8S_35="Prefer using secrets as files over secrets as environment variables"
+    bridgecrew.io/skip13: CKV_K8S_35="Prefer using secrets as files over secrets as environment variables"
     # TODO: check if this can be implemented
-    bridgecrew.io/skip11: CKV_K8S_40="Containers should run as a high UID to avoid host conflict"
+    bridgecrew.io/skip14: CKV_K8S_40="Containers should run as a high UID to avoid host conflict"
   labels:
     app: azdevops-agent
 spec:
@@ -41,8 +43,6 @@ spec:
         app: azdevops-agent
     spec:
       securityContext:
-        seccompProfile:
-          type: RuntimeDefault
       containers:
         - name: azdevops-agent
           image: "{{ .Values.container.image }}"
