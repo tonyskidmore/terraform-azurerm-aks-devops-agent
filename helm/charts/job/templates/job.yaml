@@ -20,7 +20,7 @@ metadata:
     bridgecrew.io/skip6: CKV_K8S_37="Minimize the admission of containers with capabilities assigned"
     # required for operation
     bridgecrew.io/skip7: CKV_K8S_38="Ensure that Service Account Tokens are only mounted where necessary"
-    # does not actually actively run container images
+    # use stable for deplyment image
     bridgecrew.io/skip8: CKV_K8S_43="Image should use digest"
     # TODO: check if this can be implemented
     bridgecrew.io/skip9: CKV_K8S_35="Prefer using secrets as files over secrets as environment variables"
@@ -43,11 +43,11 @@ spec:
           securityContext:
           resources:
             limits:
-              cpu: 1
-              memory: 1Gi
+              cpu: "{{ .Values.resources.limits.cpu }}"
+              memory: "{{ .Values.resources.limits.memory }}"
             requests:
-              cpu: 1
-              memory: 1Gi
+              cpu: "{{ .Values.resources.requests.cpu }}"
+              memory: "{{ .Values.resources.requests.memory }}"
           imagePullPolicy: Always
           env:
             - name: AZP_AGENT_NAME

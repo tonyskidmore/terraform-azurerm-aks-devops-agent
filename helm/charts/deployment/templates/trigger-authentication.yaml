@@ -1,0 +1,11 @@
+---
+
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: pipeline-trigger-auth
+spec:
+  secretTargetRef:
+    - parameter: AZP_TOKEN
+      name: pipeline-auth
+      key: AZP_TOKEN

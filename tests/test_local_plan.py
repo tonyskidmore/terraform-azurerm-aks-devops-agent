@@ -35,9 +35,11 @@ def test_variables(tf_def):
     assert "ado_agent_pool_name" in tf_def.variables
     assert "ado_agent_pool_auto_provision" in tf_def.variables
     assert "ado_agent_pool_auto_update" in tf_def.variables
+    assert "k8s_ado_agents_create_namespace" in tf_def.variables
+    assert "k8s_ado_agents_create_secret" in tf_def.variables
     assert "k8s_ado_agents_namespace" in tf_def.variables
     assert "k8s_ado_agents_namespace_annotations" in tf_def.variables
-    assert "k8s_ado_agents_namespace_labels" in tf_def.variables
+    assert "k8s_ado_agents_create_secret" in tf_def.variables
     assert "k8s_ado_agent_image" in tf_def.variables
     assert "k8s_ado_agent_type" in tf_def.variables
     assert "keda_install" in tf_def.variables
@@ -47,6 +49,8 @@ def test_variables(tf_def):
     assert tf_def.variables["ado_agent_pool_name"] == ("k8s-agents-pool-001")
     assert tf_def.variables["ado_agent_pool_auto_provision"] is True
     assert tf_def.variables["ado_agent_pool_auto_update"] is True
+    assert tf_def.variables["k8s_ado_agents_create_namespace"] is True
+    assert tf_def.variables["k8s_ado_agents_create_secret"] is True
     assert tf_def.variables["k8s_ado_agents_namespace"] == "ado-agents"
     assert tf_def.variables["k8s_ado_agents_namespace_annotations"] == {}
     assert tf_def.variables["k8s_ado_agents_namespace_labels"] == {}
