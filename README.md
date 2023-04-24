@@ -8,32 +8,33 @@ Terraform Azure DevOps self-hosted agents on Kubernetes module.
 
 This Terraform module will create Azure DevOps agents in Kubernetes and an associated agent pool in Azure DevOps.
 
-<!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
-The following are base requirements to deploy Kubernetes self-hosted agents:
+This module requires the following:
 
 * An [Azure DevOps][azdo] [Organization][azdo-org].
   _Note:_ you can sign up for free in the preceding link.
 
-* An [Azure DevOps][azdo-project] project (for testing pipelines).
+* An [Azure DevOps][azdo-project] project.
 
 * An Azure DevOps [Personal Access Token][azdo-pat](PAT) created with at least Agent Pools (Read & manage).
 
-* A Kubernetes cluster that is configured and authenticated for Terraform to connect to.
-  _Note:_ A [kind](https://kind.sigs.k8s.io/) cluster is sufficient for initial testing.  The `examples/local_job` and `examples/local_deployment` were created and tested against a `kind` cluster.
+* A Kubernetes cluster deployed and authenticated for Terraform.
+  _Note:_ This can be as simple as a [kind](https://kind.sigs.k8s.io/) cluster, which was used in the `examples/local_job` and `examples/local_deployment`.
 
-The Azure DevOps PAT and Organization required variables need be passed to the Terraform configuration by any standard mechanism.  Also, the [Terraform Provider for Azure DevOps](https://github.com/microsoft/terraform-provider-azuredevops) expects environment variables to also to have been set.  The below is an example of setting the required variables:
+The Azure DevOps PAT and Organization URL need be passed to the Terraform configuration by any standard mechanism. Also, the [Terraform Provider for Azure DevOps](https://github.com/microsoft/terraform-provider-azuredevops) requires two defined environment variables.  An example of how to supply these to this Terraform module:
 
 ````bash
 
  export AZDO_PERSONAL_ACCESS_TOKEN="ckusfcc8ope2soot1yuovmdvlgtfgj9nio2orfwyvv5jsgcnwwga"
- export AZDO_ORG_SERVICE_URL="https://dev.azure.com/tonyskidmore"
-export TF_VAR_ado_ext_pat="$AZDO_PERSONAL_ACCESS_TOKEN"
+export AZDO_ORG_SERVICE_URL="https://dev.azure.com/tonyskidmore"
+export TF_VAR_ado_ext_pat="$AZURE_DEVOPS_EXT_PAT"
 export TF_VAR_ado_org="$AZDO_ORG_SERVICE_URL"
 
 ````
+
+<!-- BEGIN_TF_DOCS -->
+
 
 
 ## Basic example
@@ -117,10 +118,16 @@ module "k8s-azure-devops-agents" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azuredevops"></a> [azuredevops](#provider\_azuredevops) | 0.4.0 |
+| <a name="provider_azuredevops"></a> [azuredevops](#provider\_azuredevops) | >= 0.4.0 |
 | <a name="provider_github"></a> [github](#provider\_github) | 5.22.0 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.9.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.19.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.9.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.19.0 |
 
 
 <!-- END_TF_DOCS -->
+
+
+[azdo-pat]: https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate
+[azdo]: https://azure.microsoft.com/en-gb/products/devops
+[azdo-org]: https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/create-organization
+[azdo-project]: https://learn.microsoft.com/en-us/azure/devops/organizations/projects/create-project
