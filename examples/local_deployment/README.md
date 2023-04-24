@@ -1,4 +1,8 @@
-# local
+# local deployment
+
+This example uses [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) as the Kubernetes target and deploys Azure DevOps agents using a `Deployment`.  It reuses the names spaces and KEDA installation carried out be the `local_job` example, so it has that example as a dependency.
+
+See: [Autoscaling Azure Pipelines agents with KEDA](https://keda.sh/blog/2021-05-27-azure-pipelines-scaler/).
 
 <!-- BEGIN_TF_DOCS -->
 
@@ -30,9 +34,15 @@ No providers.
 | ado\_org | Azure DevOps organization | `string` | n/a | yes |
 | k8s\_ado\_agent\_image | Azure DevOps Agent container image | `string` | `"ghcr.io/tonyskidmore/terraform-kubernetes-azure-devops-agent-base-image:stable"` | no |
 | k8s\_ado\_agent\_type | Azure DevOps Agent type, Job or Deployment | `string` | `"job"` | no |
+| k8s\_ado\_agents\_create\_namespace | Create new Kubernetes Azure DevOps Agent namespace | `bool` | `true` | no |
+| k8s\_ado\_agents\_create\_secret | Create new Kubernetes Azure DevOps Agent secret | `bool` | `true` | no |
 | k8s\_ado\_agents\_namespace | Kubernetes Azure DevOps Agent namespace | `string` | `"ado-agents"` | no |
 | k8s\_ado\_agents\_namespace\_annotations | Kubernetes Azure DevOps Agent namespace annotations | `map(string)` | `{}` | no |
 | k8s\_ado\_agents\_namespace\_labels | Kubernetes Azure DevOps Agent namespace labels | `map(string)` | `{}` | no |
+| k8s\_resources\_limits\_cpu | Kuberenetes Azure DevOps Agent resource limits CPU | `string` | `"1"` | no |
+| k8s\_resources\_limits\_memory | Kuberenetes Azure DevOps Agent resource limits memory | `string` | `"1Gi"` | no |
+| k8s\_resources\_requests\_cpu | Kuberenetes Azure DevOps Agent resource requests CPU | `string` | `"1"` | no |
+| k8s\_resources\_requests\_memory | Kuberenetes Azure DevOps Agent resource requests memory | `string` | `"1"` | no |
 | keda\_install | Install KEDA as part of the module | `bool` | `true` | no |
 | keda\_namespace | Kubernetes namespace name for KEDA install | `string` | `"keda"` | no |
 | keda\_version | KEDA version to install using Helm | `string` | `"latest"` | no |
@@ -54,11 +64,17 @@ module "k8s-azure-devops-agents" {
   ado_create_agent_pool                = var.ado_create_agent_pool
   ado_agent_pool_auto_provision        = var.ado_agent_pool_auto_provision
   ado_agent_pool_auto_update           = var.ado_agent_pool_auto_update
+  k8s_ado_agents_create_namespace      = var.k8s_ado_agents_create_namespace
+  k8s_ado_agents_create_secret         = var.k8s_ado_agents_create_secret
   k8s_ado_agents_namespace             = var.k8s_ado_agents_namespace
   k8s_ado_agents_namespace_labels      = var.k8s_ado_agents_namespace_labels
   k8s_ado_agents_namespace_annotations = var.k8s_ado_agents_namespace_annotations
   k8s_ado_agent_image                  = var.k8s_ado_agent_image
   k8s_ado_agent_type                   = var.k8s_ado_agent_type
+  k8s_resources_limits_cpu             = var.k8s_resources_limits_cpu
+  k8s_resources_limits_memory          = var.k8s_resources_limits_memory
+  k8s_resources_requests_cpu           = var.k8s_resources_requests_cpu
+  k8s_resources_requests_memory        = var.k8s_resources_requests_memory
   keda_install                         = var.keda_install
   keda_namespace                       = var.keda_namespace
   keda_version                         = var.keda_version

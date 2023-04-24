@@ -4,8 +4,9 @@ directory:
   - .
 
 skip-check:
-  - CKV_GHA_*
-  - CKV2_GHA_*
+  - CKV_K8S_14  # "Image Tag should be fixed - not latest or blank"
+#   - CKV_GHA_*
+#   - CKV2_GHA_*
 
 skip-path:
   - job-setup.yml

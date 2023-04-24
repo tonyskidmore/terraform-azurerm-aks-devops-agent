@@ -1,0 +1,18 @@
+---
+
+container:
+  image: "replace"
+
+pool:
+  name: "replace"
+  id: "replace"
+
+namespace: "replace"
+
+resources:
+  limits:
+    cpu: "replace"
+    memory: "replace"
+  requests:
+    cpu: "replace"
+    memory: "replace"

@@ -1,10 +1,15 @@
 ---
 
-name: test
+permissions: read-all
+
+name: tests
 
 # yamllint disable rule:truthy
 on:
   workflow_dispatch:
+
+env:
+  TF_IN_AUTOMATION: "1"
 
 jobs:
   tests:
@@ -19,7 +24,7 @@ jobs:
           node_image: kindest/node:v1.25.8@sha256:00d3f5314cc35327706776e95b2f8e504198ce59ac545d0200a89e69fce10b7f
           cluster_name: kind
 
-      - name: Run a multi-line script
+      - name: Get K8s info
         run: |
           kubectl version
           kubectl config get-contexts
@@ -37,10 +42,51 @@ jobs:
       - name: Test with pytest
         run: |
           pytest --junitxml=test-results.xml
-        working-directory: ./tests
+          cat test-results.xml
+        working-directory: tests/
+        env:
+          AZDO_ORG_SERVICE_URL: ${{ secrets.ado_org }}
+          AZDO_PERSONAL_ACCESS_TOKEN: ${{ secrets.ado_ext_pat }}
 
-      - uses: actions/upload-artifact@v2
+      # - name: Terraform setup
+      #   uses: hashicorp/setup-terraform@v2
+      #   with:
+      #     terraform_version: 1.3.0
+
+      # - name: Terraform init
+      #   run: |
+      #     terraform version
+      #     terraform init
+      #   working-directory: ./examples/local
+
+      # - name: Terraform plan
+      #   run: |
+      #     terraform plan -out tfplan
+      #   working-directory: examples/local
+      #   env:
+      #     AZDO_ORG_SERVICE_URL: ${{ secrets.ado_org }}
+      #     AZDO_PERSONAL_ACCESS_TOKEN: ${{ secrets.ado_ext_pat }}
+
+      # - name: Terraform apply
+      #   run: |
+      #     terraform apply tfplan
+      #   working-directory: examples/local
+
+      # - name: Terraform plan destroy
+      #   run: |
+      #     terraform plan -destroy -out tfplan
+      #   working-directory: examples/local
+      #   env:
+      #     AZDO_ORG_SERVICE_URL: ${{ secrets.ado_org }}
+      #     AZDO_PERSONAL_ACCESS_TOKEN: ${{ secrets.ado_ext_pat }}
+
+      # - name: Terraform apply
+      #   run: |
+      #     terraform apply tfplan
+      #   working-directory: examples/local
+
+      - uses: actions/upload-artifact@v3
         if: success() || failure()
         with:
           name: test-results
-          path: test-results.xml
+          path: tests/test-results.xml
