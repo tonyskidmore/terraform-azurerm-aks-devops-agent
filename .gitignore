@@ -33,4 +33,6 @@ override.tf.json
 **/__pycache__/
 **/*.pyc
 
+.terraform.lock.hcl
+
 .env

@@ -8,6 +8,31 @@ Terraform Azure DevOps self-hosted agents on Kubernetes module.
 
 This Terraform module will create Azure DevOps agents in Kubernetes and an associated agent pool in Azure DevOps.
 
+## Requirements
+
+This module requires the following:
+
+* An [Azure DevOps][azdo] [Organization][azdo-org].
+  _Note:_ you can sign up for free in the preceding link.
+
+* An [Azure DevOps][azdo-project] project.
+
+* An Azure DevOps [Personal Access Token][azdo-pat](PAT) created with at least Agent Pools (Read & manage).
+
+* A Kubernetes cluster deployed and authenticated for Terraform.
+  _Note:_ This can be as simple as a [kind](https://kind.sigs.k8s.io/) cluster, which was used in the `examples/local_job` and `examples/local_deployment`.
+
+The Azure DevOps PAT and Organization URL need be passed to the Terraform configuration by any standard mechanism. Also, the [Terraform Provider for Azure DevOps](https://github.com/microsoft/terraform-provider-azuredevops) requires two defined environment variables.  An example of how to supply these to this Terraform module:
+
+````bash
+
+ export AZDO_PERSONAL_ACCESS_TOKEN="ckusfcc8ope2soot1yuovmdvlgtfgj9nio2orfwyvv5jsgcnwwga"
+export AZDO_ORG_SERVICE_URL="https://dev.azure.com/tonyskidmore"
+export TF_VAR_ado_ext_pat="$AZURE_DEVOPS_EXT_PAT"
+export TF_VAR_ado_org="$AZDO_ORG_SERVICE_URL"
+
+````
+
 <!-- BEGIN_TF_DOCS -->
 
 
