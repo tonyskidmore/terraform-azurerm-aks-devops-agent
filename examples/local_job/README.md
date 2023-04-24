@@ -2,6 +2,8 @@
 
 This example uses [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) as the Kubernetes target and deploys Azure DevOps agents using a `ScaledObject`.  A placeholder deployment is used to create an offline agent to avoid `No agent found in pool <pool-name> which satisfies the specified demands` errors.
 
+_Note:_ The `placeholder-agent` needs to appear in the Agents list before submitting pipeline jobs.
+
 See: [Autoscaling Azure Pipelines agents with KEDA](https://keda.sh/blog/2021-05-27-azure-pipelines-scaler/).
 
 <!-- BEGIN_TF_DOCS -->

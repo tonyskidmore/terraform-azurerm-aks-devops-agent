@@ -1,6 +1,6 @@
 # local deployment
 
-This example uses [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) as the Kubernetes target and deploys Azure DevOps agents using a `Deployment`.
+This example uses [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) as the Kubernetes target and deploys Azure DevOps agents using a `Deployment`.  It reuses the names spaces and KEDA installation carried out be the `local_job` example, so it has that example as a dependency.
 
 See: [Autoscaling Azure Pipelines agents with KEDA](https://keda.sh/blog/2021-05-27-azure-pipelines-scaler/).
 
