@@ -11,9 +11,9 @@ spec:
   minReplicaCount: 1
   maxReplicaCount: 5
   triggers:
-  - type: azure-pipelines
-    metadata:
-      poolID: "{{ .Values.pool.id }}"
-      organizationURLFromEnv: "AZP_URL"
-    authenticationRef:
-     name: pipeline-trigger-auth
+    - type: azure-pipelines
+      metadata:
+        poolID: "{{ .Values.pool.id }}"
+        organizationURLFromEnv: "AZP_URL"
+      authenticationRef:
+        name: pipeline-trigger-auth

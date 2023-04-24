@@ -16,7 +16,7 @@ metadata:
     bridgecrew.io/skip4: CKV_K8S_23=Minimize the admission of root containers
     # required for operation
     bridgecrew.io/skip5: CKV_K8S_28="Minimize the admission of containers with the NET_RAW capability"
-   # required for operation
+    # required for operation
     bridgecrew.io/skip6: CKV_K8S_30="Apply security context to your containers"
     # required for operation
     bridgecrew.io/skip7: CKV_K8S_37="Minimize the admission of containers with capabilities assigned"
@@ -44,26 +44,26 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       containers:
-      - name: azdevops-agent
-        image: "{{ .Values.container.image}}"
-        securityContext:
-        resources:
-          limits:
-            cpu: "{{ .Values.resources.limits.cpu }}"
-            memory: "{{ .Values.resources.limits.memory }}"
-          requests:
-            cpu: "{{ .Values.resources.requests.cpu }}"
-            memory: "{{ .Values.resources.requests.memory }}"
-        env:
-          - name: AZP_POOL
-            value: "{{ .Values.pool.name}}"
-          - name: AZP_URL
-            valueFrom:
-              secretKeyRef:
-                name: pipeline-auth
-                key: AZP_URL
-          - name: AZP_TOKEN
-            valueFrom:
-              secretKeyRef:
-                name: pipeline-auth
-                key: AZP_TOKEN
+        - name: azdevops-agent
+          image: "{{ .Values.container.image }}"
+          securityContext:
+          resources:
+            limits:
+              cpu: "{{ .Values.resources.limits.cpu }}"
+              memory: "{{ .Values.resources.limits.memory }}"
+            requests:
+              cpu: "{{ .Values.resources.requests.cpu }}"
+              memory: "{{ .Values.resources.requests.memory }}"
+          env:
+            - name: AZP_POOL
+              value: "{{ .Values.pool.name}}"
+            - name: AZP_URL
+              valueFrom:
+                secretKeyRef:
+                  name: pipeline-auth
+                  key: AZP_URL
+            - name: AZP_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: pipeline-auth
+                  key: AZP_TOKEN

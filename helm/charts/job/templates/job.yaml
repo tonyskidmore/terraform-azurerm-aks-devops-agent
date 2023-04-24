@@ -14,7 +14,7 @@ metadata:
     bridgecrew.io/skip3: CKV_K8S_23=Minimize the admission of root containers
     # required for operation
     bridgecrew.io/skip4: CKV_K8S_28="Minimize the admission of containers with the NET_RAW capability"
-   # required for operation
+    # required for operation
     bridgecrew.io/skip5: CKV_K8S_30="Apply security context to your containers"
     # required for operation
     bridgecrew.io/skip6: CKV_K8S_37="Minimize the admission of containers with capabilities assigned"
