@@ -117,9 +117,9 @@ module "k8s-azure-devops-agents" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azuredevops"></a> [azuredevops](#provider\_azuredevops) | >= 0.4.0 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.9.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.19.0 |
+| <a name="provider_azuredevops"></a> [azuredevops](#provider\_azuredevops) | 0.5.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.9.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.20.0 |
 
 
 <!-- END_TF_DOCS -->
