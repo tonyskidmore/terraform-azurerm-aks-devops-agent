@@ -79,7 +79,6 @@ module "k8s-azure-devops-agents" {
 | [kubernetes_namespace.keda](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [kubernetes_secret.pipeline-auth](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/secret) | resource |
 | [azuredevops_agent_pool.k8s](https://registry.terraform.io/providers/microsoft/azuredevops/latest/docs/data-sources/agent_pool) | data source |
-| [github_release.keda](https://registry.terraform.io/providers/integrations/github/5.22.0/docs/data-sources/release) | data source |
 | [kubernetes_namespace.ado-agents](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/namespace) | data source |
 
 ## Inputs
@@ -105,7 +104,7 @@ module "k8s-azure-devops-agents" {
 | <a name="input_k8s_resources_requests_memory"></a> [k8s\_resources\_requests\_memory](#input\_k8s\_resources\_requests\_memory) | Kuberenetes Azure DevOps Agent resource requests memory | `string` | `"1"` | no |
 | <a name="input_keda_install"></a> [keda\_install](#input\_keda\_install) | Install KEDA as part of the module | `bool` | `true` | no |
 | <a name="input_keda_namespace"></a> [keda\_namespace](#input\_keda\_namespace) | Kubernetes namespace name for KEDA install | `string` | `"keda"` | no |
-| <a name="input_keda_version"></a> [keda\_version](#input\_keda\_version) | KEDA version to install using Helm | `string` | `"latest"` | no |
+| <a name="input_keda_version"></a> [keda\_version](#input\_keda\_version) | KEDA version to install using Helm Specify the exact chart version to install, will not automatically grab the latest release, version must explicitly upgraded when upgrading | `string` | `"latest"` | no |
 
 ## Outputs
 
@@ -119,7 +118,6 @@ module "k8s-azure-devops-agents" {
 | Name | Version |
 |------|---------|
 | <a name="provider_azuredevops"></a> [azuredevops](#provider\_azuredevops) | >= 0.4.0 |
-| <a name="provider_github"></a> [github](#provider\_github) | 5.22.0 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.9.0 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.19.0 |
 
