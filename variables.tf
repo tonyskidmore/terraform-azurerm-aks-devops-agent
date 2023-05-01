@@ -123,7 +123,7 @@ variable "keda_namespace" {
 
 variable "keda_version" {
   type        = string
-  description = "KEDA version to install using Helm"
+  description = "KEDA version to install using Helm Specify the exact chart version to install, will not automatically grab the latest release, version must explicitly upgraded when upgrading"
   default     = "latest"
 
   validation {
